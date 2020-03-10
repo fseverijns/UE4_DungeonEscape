@@ -8,16 +8,16 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/InputComponent.h"
-#include "FPSCharacter.generated.h"
+#include "PlayerCharacter.generated.h"
 
 UCLASS()
-class DUNGEONESCAPE_API AFPSCharacter : public ACharacter
+class DUNGEONESCAPE_API APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	AFPSCharacter();
+	APlayerCharacter();
 
 protected:
 	// Called when the game starts or when spawned

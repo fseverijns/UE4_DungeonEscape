@@ -9,18 +9,18 @@
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
-#include "PhysicsEngine/PhysicsHandleComponent.h"
-#include "Grabber.generated.h"
+#include "InteractSwitch.h"
+#include "Interacter.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class DUNGEONESCAPE_API UGrabber : public UActorComponent
+class DUNGEONESCAPE_API UInteracter : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UGrabber();
+	UInteracter();
 
 protected:
 	// Called when the game starts
@@ -31,29 +31,23 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	// Distance from which the player can grab objects
+	// Distance from which the player can interact with objects
 	UPROPERTY(EditAnywhere)
-	int32 Reach = 100;
-	// How much weight the player can carry
-	UPROPERTY(EditAnywhere)
-	int32 MaximumCarryWeight = 20;
+	float Reach = 100;
 
+	// Input component that lets us bind the interact buttons
 	UInputComponent* InputHandler = nullptr;
-	UPhysicsHandleComponent* PhysicsHandler = nullptr;
-	AActor* ObjectInReach;
-	AActor* HeldObject;
-	FVector HeldPosition;
+	// Switch currently being interacted with
+	UInteractSwitch* InteractingWith;	
 
-	// Find the PhysicsHandleComponent
-	void FindPhysicsHandler();
-	// Bind the input to the Grab and Release functions
+	// Bind the input to the Interact function
 	void BindInput();
-	// Grab a physics object
-	void Grab();
-	// Release the currently held physics object
-	void Release();
-	// Returns the first actor with physics within reach
-	AActor* FindFirstPhysicsObjectInReach() const;
+	// Interact with an actor
+	void StartInteract();
+	// Stop interacting with an actor
+	void StopInteract();
+	// Returns the first actor within reach
+	AActor* FindFirstActorInReach() const;
 	// Cast a ray from the Actor's viewpoint to its reach
-	void CastRay(AActor* &out_HitActor) const;
+	void CastRay(AActor* &out_HitActor) const;	
 };

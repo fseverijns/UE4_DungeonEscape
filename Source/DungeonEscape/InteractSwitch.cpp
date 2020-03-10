@@ -30,3 +30,16 @@ void UInteractSwitch::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 
 	// ...
 }
+
+void UInteractSwitch::OnInteractStart()
+{
+	NotifyObservers(!bCurrentSwitchState);
+}
+
+void UInteractSwitch::OnInteractStop()
+{
+	if(bDetectInteractRelease)
+	{
+		NotifyObservers(!bCurrentSwitchState);
+	}
+}

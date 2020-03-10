@@ -8,7 +8,6 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
 #include "Switch.h"
-#include "Weight.h"
 #include "TriggerSwitch.generated.h"
 
 UENUM(BlueprintType)

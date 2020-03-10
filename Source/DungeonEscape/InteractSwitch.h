@@ -6,10 +6,7 @@
 #include "Switch.h"
 #include "InteractSwitch.generated.h"
 
-/**
- * 
- */
-UCLASS()
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) ) 
 class DUNGEONESCAPE_API UInteractSwitch : public USwitch
 {
 	GENERATED_BODY()
@@ -25,5 +22,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	
+	// Called when player interacts with switch
+	virtual void OnInteractStart();
 
+	// Called when player stops interacting with switch (only when Detect Interact Release is enabled)
+	virtual void OnInteractStop();
+
+protected:
+	// Switch should respond when the Interact button is released
+	UPROPERTY(EditAnywhere)
+	bool bDetectInteractRelease;
 };
