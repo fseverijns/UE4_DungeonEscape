@@ -18,6 +18,8 @@ struct FSubSwitch
 	UPROPERTY(EditAnywhere)
 	bool bDesiredState;
 
+	USwitch* Switch = nullptr;
+
 	FSubSwitch()
 	{
 		SwitchActor = nullptr;
@@ -46,4 +48,8 @@ public:
 private:
 	UPROPERTY(EditAnywhere)
 	TArray<FSubSwitch> Switches;
+
+	bool bCurrentState = false;
+
+	bool CheckSubSwitchStates();
 };

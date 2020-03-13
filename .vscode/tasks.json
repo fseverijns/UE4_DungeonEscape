@@ -9,13 +9,13 @@
 				"DungeonEscape",
 				"Win32",
 				"Debug",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -26,7 +26,7 @@
 				"DungeonEscape",
 				"Win32",
 				"Debug",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -35,7 +35,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -46,13 +46,13 @@
 				"DungeonEscape",
 				"Win32",
 				"Debug",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -63,13 +63,13 @@
 				"DungeonEscape",
 				"Win32",
 				"DebugGame",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -80,7 +80,7 @@
 				"DungeonEscape",
 				"Win32",
 				"DebugGame",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -89,7 +89,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -100,13 +100,13 @@
 				"DungeonEscape",
 				"Win32",
 				"DebugGame",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -117,13 +117,13 @@
 				"DungeonEscape",
 				"Win32",
 				"Development",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -134,7 +134,7 @@
 				"DungeonEscape",
 				"Win32",
 				"Development",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -143,7 +143,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -154,13 +154,13 @@
 				"DungeonEscape",
 				"Win32",
 				"Development",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -171,13 +171,13 @@
 				"DungeonEscape",
 				"Win32",
 				"Shipping",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -188,7 +188,7 @@
 				"DungeonEscape",
 				"Win32",
 				"Shipping",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -197,7 +197,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -208,13 +208,13 @@
 				"DungeonEscape",
 				"Win32",
 				"Shipping",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -225,13 +225,13 @@
 				"DungeonEscape",
 				"Win32",
 				"Test",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -242,7 +242,7 @@
 				"DungeonEscape",
 				"Win32",
 				"Test",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -251,7 +251,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -262,13 +262,13 @@
 				"DungeonEscape",
 				"Win32",
 				"Test",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -279,13 +279,13 @@
 				"DungeonEscape",
 				"Win64",
 				"Debug",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -296,7 +296,7 @@
 				"DungeonEscape",
 				"Win64",
 				"Debug",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -305,7 +305,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -316,13 +316,13 @@
 				"DungeonEscape",
 				"Win64",
 				"Debug",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -333,13 +333,13 @@
 				"DungeonEscape",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -350,7 +350,7 @@
 				"DungeonEscape",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -359,7 +359,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -370,13 +370,13 @@
 				"DungeonEscape",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -387,13 +387,13 @@
 				"DungeonEscape",
 				"Win64",
 				"Development",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -404,7 +404,7 @@
 				"DungeonEscape",
 				"Win64",
 				"Development",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -413,7 +413,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -424,13 +424,13 @@
 				"DungeonEscape",
 				"Win64",
 				"Development",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -441,13 +441,13 @@
 				"DungeonEscape",
 				"Win64",
 				"Shipping",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -458,7 +458,7 @@
 				"DungeonEscape",
 				"Win64",
 				"Shipping",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -467,7 +467,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -478,13 +478,13 @@
 				"DungeonEscape",
 				"Win64",
 				"Shipping",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -495,13 +495,13 @@
 				"DungeonEscape",
 				"Win64",
 				"Test",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -512,7 +512,7 @@
 				"DungeonEscape",
 				"Win64",
 				"Test",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -521,7 +521,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -532,13 +532,13 @@
 				"DungeonEscape",
 				"Win64",
 				"Test",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -549,13 +549,13 @@
 				"DungeonEscapeEditor",
 				"Win64",
 				"Debug",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -566,7 +566,7 @@
 				"DungeonEscapeEditor",
 				"Win64",
 				"Debug",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -575,7 +575,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -586,13 +586,13 @@
 				"DungeonEscapeEditor",
 				"Win64",
 				"Debug",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -603,13 +603,13 @@
 				"DungeonEscapeEditor",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -620,7 +620,7 @@
 				"DungeonEscapeEditor",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -629,7 +629,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -640,13 +640,13 @@
 				"DungeonEscapeEditor",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -657,13 +657,13 @@
 				"DungeonEscapeEditor",
 				"Win64",
 				"Development",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -674,7 +674,7 @@
 				"DungeonEscapeEditor",
 				"Win64",
 				"Development",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -683,7 +683,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		},
 		{
@@ -694,13 +694,13 @@
 				"DungeonEscapeEditor",
 				"Win64",
 				"Development",
-				"C:\\Users\\Frank\\Documents\\Unreal Projects\\DungeonEscape\\DungeonEscape.uproject",
+				"C:\\Users\\Frank\\Documents\\Unreal Projects\\UE4_DungeonEscape\\DungeonEscape.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Unreal\\UE_4.24"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
 			}
 		}
 	]

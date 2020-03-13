@@ -41,13 +41,17 @@ void USwitch::BeginPlay()
 	}	
 }
 
-
 // Called every frame
 void USwitch::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+bool USwitch::GetSwitchState()
+{
+	return bCurrentSwitchState;
 }
 
 void USwitch::NotifyObservers(const bool bSwitchState)

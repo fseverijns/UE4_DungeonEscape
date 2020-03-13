@@ -26,6 +26,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	// Gets the current switch state
+	bool GetSwitchState();
 
 protected:
 	// Which actor are affected by the switch (actor must contain at least one ActorComponent deriving from Switch Observer to be affected)
