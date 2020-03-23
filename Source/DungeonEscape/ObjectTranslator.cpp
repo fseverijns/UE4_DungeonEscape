@@ -20,8 +20,6 @@ void UObjectTranslator::BeginPlay()
 	Super::BeginPlay();
 
 	USceneComponent* Object = GetOwner()->GetRootComponent();
-
-	Object->SetRelativeLocation(ObjectStartPosition);	
 }
 
 
@@ -33,57 +31,35 @@ void UObjectTranslator::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	// ...
 }
 
-void UObjectTranslator::ProcessActivationState(const float DeltaTime)
-{
-	if(bTransformInProgress)
-	{
-		float Delay = 0.0f;
-
-		if(bActivationState)
-		{
-			Delay = TransformDelay;
-		}
-		else
-		{
-			Delay = ReverseDelay;
-		}
-
-		if(DelayTimer < Delay)
-		{
-			DelayTimer += DeltaTime;
-			return;
-		}
-
-		if(bActivationState)
-		{
-			TranslationAlpha += DeltaTime * TransformSpeed;
-			if(TranslationAlpha > 1)
-			{
-				bTransformInProgress = false;
-				DelayTimer = 0.0f;
-				TranslationAlpha = 1;
-			}	
-		}
-		else
-		{
-			TranslationAlpha -= DeltaTime * ReverseSpeed;
-			if(TranslationAlpha < 0)
-			{
-				bTransformInProgress = false;
-				DelayTimer = 0.0f;
-				TranslationAlpha = 0;
-			}	
-		}
-
-		Translate();	
-	}
-}
-
-void UObjectTranslator::Translate()
+void UObjectTranslator::Transform(float DeltaTime, bool& out_TransformCompleted)
 {
 	USceneComponent* Object = GetOwner()->GetRootComponent();
+	
+	FVector CurrentLocation = Object->GetRelativeLocation();
+	FVector TargetLocation = ObjectEndLocation;
 
-	FVector NewPosition = FMath::Lerp(ObjectStartPosition, ObjectEndPosition, TranslationAlpha);
+	if(Acceleration == 0.0f)
+	{
+		Speed = TransformSpeed;
+	}
+	else
+	{
+		Speed += FMath::Clamp(Acceleration * DeltaTime, 0.01f, TransformSpeed);
+	}
+
+	if(bIsReversing)
+	{
+		TargetLocation = ObjectStartLocation;
+	}
+
+	FVector NewPosition = FMath::Lerp(CurrentLocation, TargetLocation, DeltaTime * Speed);
+
+	out_TransformCompleted = CurrentLocation.Equals(TargetLocation, CompletionErrorTolerance);
+
+	if(out_TransformCompleted)
+	{
+		Speed = 0;
+	}
 
 	Object->SetRelativeLocation(NewPosition);
 }

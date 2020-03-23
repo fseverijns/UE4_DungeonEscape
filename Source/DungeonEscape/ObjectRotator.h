@@ -21,15 +21,14 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	// Processes activation logic
-	virtual void ProcessActivationState(const float DeltaTime) override;
+	// Rotates the object
+	virtual void Transform(float DeltaTime, bool& out_TransformCompleted) override;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	void Rotate();
 
 private:
 	UPROPERTY(EditAnywhere)
@@ -37,7 +36,4 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	FRotator ObjectEndRotation = FRotator(0,90,0);
-
-	FRotator ObjectRotation;
-	float RotationAlpha = 0.0f;
 };

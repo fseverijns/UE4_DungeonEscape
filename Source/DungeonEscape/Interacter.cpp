@@ -54,9 +54,16 @@ void UInteracter::StartInteract()
 	UInteractSwitch* InteractSwitch = Interactible->FindComponentByClass<UInteractSwitch>();
 	if(InteractSwitch && InteractSwitch != nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Found %s"), *Interactible->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("Found InteractSwitch %s"), *Interactible->GetName());
 		InteractingWith = InteractSwitch;
 		InteractSwitch->OnInteractStart();
+	}
+
+	UKeyItemPickup* ItemPickup = Interactible->FindComponentByClass<UKeyItemPickup>();
+	if(ItemPickup && ItemPickup != nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Found Pickup %s"), *Interactible->GetName());
+		ItemPickup->PickUp();
 	}
 }
 

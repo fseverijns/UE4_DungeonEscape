@@ -19,8 +19,6 @@ void UObjectRotator::BeginPlay()
 	Super::BeginPlay();
 
 	USceneComponent* Object = GetOwner()->GetRootComponent();
-
-	Object->SetRelativeRotation(ObjectStartRotation);
 }
 
 
@@ -30,57 +28,35 @@ void UObjectRotator::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void UObjectRotator::ProcessActivationState(const float DeltaTime)
-{	
-	if(bTransformInProgress)
-	{
-		float Delay = 0.0f;
-
-		if(bActivationState)
-		{
-			Delay = TransformDelay;
-		}
-		else
-		{
-			Delay = ReverseDelay;
-		}
-
-		if(DelayTimer < Delay)
-		{
-			DelayTimer += DeltaTime;
-			return;
-		}
-
-		if(bActivationState)
-		{
-			RotationAlpha += DeltaTime * TransformSpeed;
-			if(RotationAlpha > 1)
-			{
-				bTransformInProgress = false;
-				DelayTimer = 0.0f;
-				RotationAlpha = 1;
-			}	
-		}
-		else
-		{
-			RotationAlpha -= DeltaTime * ReverseSpeed;
-			if(RotationAlpha < 0)
-			{
-				bTransformInProgress = false;
-				DelayTimer = 0.0f;
-				RotationAlpha = 0;
-			}	
-		}
-
-		Rotate();	
-	}
-}
-
-void UObjectRotator::Rotate()
+void UObjectRotator::Transform(float DeltaTime, bool& out_TransformCompleted)
 {
 	USceneComponent* Object = GetOwner()->GetRootComponent();
+	
+	FRotator CurrentRotation = Object->GetRelativeRotation();
+	FRotator TargetRotation = ObjectEndRotation;
 
-	FRotator NewRotation = FMath::Lerp(ObjectStartRotation, ObjectEndRotation, RotationAlpha);
+	if(Acceleration == 0.0f)
+	{
+		Speed = TransformSpeed;
+	}
+	else
+	{
+		Speed += FMath::Clamp(Acceleration * DeltaTime, 0.01f, TransformSpeed);
+	}
+
+	if(bIsReversing)
+	{
+		TargetRotation = ObjectStartRotation;
+	}
+
+	FRotator NewRotation = FMath::Lerp(CurrentRotation, TargetRotation, DeltaTime * Speed);
+
+	out_TransformCompleted = CurrentRotation.Equals(TargetRotation, CompletionErrorTolerance);
+
+	if(out_TransformCompleted)
+	{
+		Speed = 0;
+	}
 
 	Object->SetRelativeRotation(NewRotation);
 }

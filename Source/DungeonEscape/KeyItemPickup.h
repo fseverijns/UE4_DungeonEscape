@@ -4,38 +4,36 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Engine/World.h"
 #include "GameFramework/Actor.h"
-#include "ObjectTransformer.h"
-#include "ObjectTranslator.generated.h"
+#include "GameFramework/PlayerController.h"
+#include "KeyItemInventory.h"
+#include "KeyItemPickup.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class DUNGEONESCAPE_API UObjectTranslator : public UObjectTransformer
+class DUNGEONESCAPE_API UKeyItemPickup : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UObjectTranslator();
+	UKeyItemPickup();
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	// Translates the object
-	virtual void Transform(float DeltaTime, bool& out_TransformCompleted) override;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	
-
-private:
-	void Translate();
+	// When the item is picked up
+	void PickUp();
 
 private:
 	UPROPERTY(EditAnywhere)
-	FVector ObjectStartLocation = FVector(0,0,0);
+	EKeyItemId KeyItemId;
 
 	UPROPERTY(EditAnywhere)
-	FVector ObjectEndLocation = FVector(1,1,1);
+	AActor* PickupParticleFX;
 };

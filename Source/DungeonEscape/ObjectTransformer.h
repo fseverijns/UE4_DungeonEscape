@@ -25,10 +25,12 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	// Start transforming the object
+	virtual void ChangeActivationState(const bool bNewState) override; 
 	// Processes activation logic
 	virtual void ProcessActivationState(const float DeltaTime);
-	// Start moving the object
-	virtual void ChangeActivationState(const bool bNewState) override; 
+	// Transform the object
+	virtual void Transform(float DeltaTime, bool& out_TransformCompleted);
 
 public:	
 	// Called every frame
@@ -39,6 +41,10 @@ protected:
 	// Automatically activate upon BeginPlay
 	UPROPERTY(EditAnywhere)
 	bool bAutoActivated; 
+
+	// While active, the object loops between its begin and end states.
+	UPROPERTY(EditAnywhere)
+	bool bLoop;
 
 	// Whether or not the activation state can be altered while the state change is in progress
 	UPROPERTY(EditAnywhere)
@@ -60,17 +66,25 @@ protected:
 	UPROPERTY(EditAnywhere)
 	float TransformSpeed = 1.0f;
 
-	// The speed at which the object returns to its deactivated state
+	// How fast the object accelerates to the specified transform speeds (0.0 = instant)
 	UPROPERTY(EditAnywhere)
-	float ReverseSpeed = 1.0f;
+	float Acceleration = 0.0f;
+
+	// When comparing current state to end state, how much difference between states is tolerated
+	UPROPERTY(EditAnywhere)
+	float CompletionErrorTolerance = 1.0f;
 
 protected:
-	// If the player is inside the trigger volume
-	bool bPlayerInTrigger = false;
 	// Activation state of the object (false = deactivated, true = activated)
 	bool bActivationState = false; 
 	// Indicates the activation state of the object has changed
 	bool bTransformInProgress = false; 
 	// Timer that starts after activation/deactivation to implement a delay
 	float DelayTimer = 0.0f; 
+	// Indicates that the object is reversing as part of a loop (bLoop is true)
+	bool bLoopIsReversing;
+	// Indicates that the object is reversing
+	bool bIsReversing;
+	// Current speed of the object;
+	float Speed;
 };

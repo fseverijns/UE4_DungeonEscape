@@ -9,6 +9,7 @@
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
+#include "KeyItemPickup.h"
 #include "InteractSwitch.h"
 #include "Interacter.generated.h"
 

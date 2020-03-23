@@ -3,6 +3,8 @@
 
 #include "ObjectTransformer.h"
 
+#define OUT
+
 // Sets default values for this component's properties
 UObjectTransformer::UObjectTransformer()
 {
@@ -38,10 +40,6 @@ void UObjectTransformer::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	}
 }
 
-void UObjectTransformer::ProcessActivationState(const float DeltaTime)
-{
-	// Implemented by derived classes
-}
 
 void UObjectTransformer::ChangeActivationState(const bool bNewState)
 {
@@ -56,5 +54,66 @@ void UObjectTransformer::ChangeActivationState(const bool bNewState)
 	}
 
 	bActivationState = bNewState;
+}
+
+void UObjectTransformer::ProcessActivationState(const float DeltaTime)
+{
+	float Delay = 0.0f;
+
+	if(bActivationState)
+	{
+		Delay = TransformDelay;
+	}
+	else
+	{
+		Delay = ReverseDelay;
+	}
+
+	if(DelayTimer < Delay)
+	{
+		DelayTimer += DeltaTime;
+		return;
+	}
+
+	if(bActivationState)
+	{
+		bool TransformCompleted = false;
+		Transform(DeltaTime, OUT TransformCompleted);	
+
+		if(TransformCompleted)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("%s transform completed!"), *GetOwner()->GetName());
+			if(bLoop)
+			{
+				bLoopIsReversing = !bLoopIsReversing;
+				bIsReversing = bLoopIsReversing;
+			}
+			else
+			{
+				bTransformInProgress = false;
+			}
+			DelayTimer = 0.0f;
+		}
+	}
+	else
+	{
+		bLoopIsReversing = false;
+		bIsReversing = true;
+
+		bool TransformCompleted = false;
+		Transform(DeltaTime, OUT TransformCompleted);	
+
+		if(TransformCompleted)
+		{
+			bIsReversing = false;
+			bTransformInProgress = false;
+			DelayTimer = 0.0f;
+		}	
+	}
+}
+
+void UObjectTransformer::Transform(float DeltaTime, bool& out_TransformCompleted)
+{
+	// Implemented by derived classes
 }
 

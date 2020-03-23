@@ -4,38 +4,33 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Components/PrimitiveComponent.h"
 #include "GameFramework/Actor.h"
-#include "ObjectTransformer.h"
-#include "ObjectTranslator.generated.h"
+#include "SwitchObserver.h"
+#include "ObjectPhysicsToggle.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class DUNGEONESCAPE_API UObjectTranslator : public UObjectTransformer
+class DUNGEONESCAPE_API UObjectPhysicsToggle : public USwitchObserver
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UObjectTranslator();
+	UObjectPhysicsToggle();
 
 protected:
 	// Called when the game starts
-	virtual void BeginPlay() override;
-	// Translates the object
-	virtual void Transform(float DeltaTime, bool& out_TransformCompleted) override;
+	virtual void BeginPlay() override;	
+	virtual void ChangeActivationState(const bool bNewState) override;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	
 
 private:
-	void Translate();
-
-private:
+	// Impulse added to the object when physics are enabled
 	UPROPERTY(EditAnywhere)
-	FVector ObjectStartLocation = FVector(0,0,0);
-
-	UPROPERTY(EditAnywhere)
-	FVector ObjectEndLocation = FVector(1,1,1);
+	FVector ImpulseAdded = FVector(0,0,0);
+		
 };
