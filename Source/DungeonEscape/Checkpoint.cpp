@@ -1,10 +1,7 @@
 // Copyright Frank Severijns 2020
 
 #include "Checkpoint.h"
-#include "DungeonEscapeGameInstance.h"
-#include "GameResetter.h"
 #include "PlayerRespawner.h"
-
 
 // Sets default values for this component's properties
 UCheckpoint::UCheckpoint()
@@ -63,9 +60,6 @@ void UCheckpoint::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Ot
 		bPlayerEnteredCheckpoint = true;
 		RespawnRotation = Respawner->GetOwner()->GetActorRotation();
 		Respawner->OnCheckpointReached(this);
-
-		UDungeonEscapeGameInstance* Instance = GetWorld()->GetGameInstance<UDungeonEscapeGameInstance>();
-		Instance->GetResetter()->OnPlayerCheckpointReached();
 	}
 }
 
@@ -75,9 +69,6 @@ void UCheckpoint::RespawnPlayer()
 	{
 		PlayerActor->SetActorRotation(RespawnRotation);
 		PlayerActor->SetActorLocation(RespawnLocation);
-
-		UDungeonEscapeGameInstance* Instance = GetWorld()->GetGameInstance<UDungeonEscapeGameInstance>();
-		Instance->GetResetter()->ResetRespawnables();
 	}
 }
 

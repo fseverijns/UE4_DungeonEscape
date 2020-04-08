@@ -1,8 +1,6 @@
 // Copyright Frank Severijns 2020
 
 #include "Switch.h"
-#include "DungeonEscapeGameInstance.h"
-#include "GameResetter.h"
 #include "Respawnable.h"
 #include "SwitchObserver.h"
 
@@ -23,9 +21,6 @@ void USwitch::BeginPlay()
 	Super::BeginPlay();
 
 	bDefaultSwitchState = bCurrentSwitchState;
-
-	UDungeonEscapeGameInstance* Instance = GetOwner()->GetGameInstance<UDungeonEscapeGameInstance>();
-	Instance->GetResetter()->RegisterRespawnable(this);
 
 	if(AffectedActors.Num() == 0)
 	{
@@ -85,8 +80,7 @@ void USwitch::OnCheckpointReached()
 {
 	if(bCurrentSwitchState != bDefaultSwitchState)
 	{
-		UDungeonEscapeGameInstance* Instance = GetOwner()->GetGameInstance<UDungeonEscapeGameInstance>();
-		Instance->GetResetter()->UnregisterRespawnable(this);
+		
 	}
 }
 

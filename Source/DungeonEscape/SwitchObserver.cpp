@@ -1,8 +1,6 @@
 // Copyright Frank Severijns 2020
 
 #include "SwitchObserver.h"
-#include "DungeonEscapeGameInstance.h"
-#include "GameResetter.h"
 
 // Sets default values for this component's properties
 USwitchObserver::USwitchObserver()
@@ -54,8 +52,7 @@ bool USwitchObserver::GetCurrentState()
 
 void USwitchObserver::RegisterRespawnable()
 {	
-	UDungeonEscapeGameInstance* Instance = GetOwner()->GetGameInstance<UDungeonEscapeGameInstance>();
-	Instance->GetResetter()->RegisterRespawnable(this, GetOwner()->GetName());
+	
 }
 
 void USwitchObserver::OnPlayerRespawn()
@@ -69,8 +66,7 @@ void USwitchObserver::OnCheckpointReached()
 {	
 	if(bActivationState != bDefaultState)
 	{
-		UDungeonEscapeGameInstance* Instance = GetOwner()->GetGameInstance<UDungeonEscapeGameInstance>();
-		Instance->GetResetter()->UnregisterRespawnable(this);
+		
 	}
 }
 
