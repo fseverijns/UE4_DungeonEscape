@@ -1,6 +1,5 @@
 // Copyright Frank Severijns 2020
 
-
 #include "KeyItemPickup.h"
 
 // Sets default values for this component's properties

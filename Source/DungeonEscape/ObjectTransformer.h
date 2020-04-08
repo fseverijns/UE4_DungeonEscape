@@ -12,7 +12,6 @@
 #include "SwitchObserver.h"
 #include "ObjectTransformer.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), abstract, meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectTransformer : public USwitchObserver
 {
@@ -30,7 +29,9 @@ protected:
 	// Processes activation logic
 	virtual void ProcessActivationState(const float DeltaTime);
 	// Transform the object
-	virtual void Transform(float DeltaTime, bool& out_TransformCompleted);
+	virtual void Transform(float DeltaTime, bool& out_bTransformCompleted);
+	// Reset the object to its initial state
+	virtual void OnPlayerRespawn() override;
 
 public:	
 	// Called every frame
@@ -38,10 +39,6 @@ public:
 
 // Editable properties
 protected:
-	// Automatically activate upon BeginPlay
-	UPROPERTY(EditAnywhere)
-	bool bAutoActivated; 
-
 	// While active, the object loops between its begin and end states.
 	UPROPERTY(EditAnywhere)
 	bool bLoop;
@@ -74,9 +71,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 	float CompletionErrorTolerance = 1.0f;
 
-protected:
-	// Activation state of the object (false = deactivated, true = activated)
-	bool bActivationState = false; 
 	// Indicates the activation state of the object has changed
 	bool bTransformInProgress = false; 
 	// Timer that starts after activation/deactivation to implement a delay
@@ -87,4 +81,6 @@ protected:
 	bool bIsReversing;
 	// Current speed of the object;
 	float Speed;
+	// The scene component
+	USceneComponent* Object;
 };

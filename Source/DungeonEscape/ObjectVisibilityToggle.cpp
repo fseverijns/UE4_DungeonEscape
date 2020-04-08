@@ -1,6 +1,5 @@
 // Copyright Frank Severijns 2020
 
-
 #include "ObjectVisibilityToggle.h"
 
 // Sets default values for this component's properties
@@ -36,5 +35,11 @@ void UObjectVisibilityToggle::ChangeActivationState(const bool bNewState)
 {
 	GetOwner()->SetActorHiddenInGame(bNewState);
 	GetOwner()->SetActorEnableCollision(!bNewState);
+}
+
+void UObjectVisibilityToggle::OnPlayerRespawn()
+{
+	GetOwner()->SetActorHiddenInGame(!bVisibleByDefault);
+	GetOwner()->SetActorEnableCollision(bVisibleByDefault);
 }
 

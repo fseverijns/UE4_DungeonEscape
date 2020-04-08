@@ -1,6 +1,5 @@
 // Copyright Frank Severijns 2020
 
-
 #include "TriggerSwitch.h"
 
 UTriggerSwitch::UTriggerSwitch()
@@ -36,8 +35,6 @@ void UTriggerSwitch::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s must be a Trigger Actor!"), *GetOwner()->GetName());
 	}
-
-	
 }
 
 
@@ -74,7 +71,7 @@ void UTriggerSwitch::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor*
 	}
 	else if(TriggerActivationType == ETriggerActivationType::Player)
 	{
-		if(OtherActor == GetWorld()->GetFirstPlayerController()->GetParentActor())
+		if(OtherActor == GetWorld()->GetFirstPlayerController()->GetPawn())
 		{
 			NotifyObservers(true);
 		}
@@ -106,7 +103,7 @@ void UTriggerSwitch::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* O
 	}
 	else if(TriggerActivationType == ETriggerActivationType::Player)
 	{
-		if(OtherActor == GetWorld()->GetFirstPlayerController()->GetParentActor())
+		if(OtherActor == GetWorld()->GetFirstPlayerController()->GetPawn())
 		{
 			NotifyObservers(false);
 		}

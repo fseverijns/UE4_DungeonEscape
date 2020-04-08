@@ -1,7 +1,8 @@
 // Copyright Frank Severijns 2020
 
-
 #include "Interacter.h"
+#include "KeyItemPickup.h"
+#include "InteractSwitch.h"
 
 // Sets default values for this component's properties
 UInteracter::UInteracter()

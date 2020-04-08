@@ -9,10 +9,10 @@
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
-#include "KeyItemPickup.h"
-#include "InteractSwitch.h"
 #include "Interacter.generated.h"
 
+// Forward Declarations
+class UInteractSwitch;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UInteracter : public UActorComponent

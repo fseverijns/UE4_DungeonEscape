@@ -1,6 +1,5 @@
 // Copyright Frank Severijns 2020
 
-
 #include "ObjectPhysicsToggle.h"
 
 // Sets default values for this component's properties
@@ -19,8 +18,8 @@ void UObjectPhysicsToggle::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+	Primitive = GetOwner()->FindComponentByClass<UPrimitiveComponent>();
+	InitialPosition = GetOwner()->GetActorLocation();
 }
 
 
@@ -34,8 +33,9 @@ void UObjectPhysicsToggle::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void UObjectPhysicsToggle::ChangeActivationState(const bool bNewState)
 {
-	UPrimitiveComponent* Primitive = GetOwner()->FindComponentByClass<UPrimitiveComponent>();
-	if(Primitive)
+	Super::ChangeActivationState(bNewState);
+
+	if(Primitive && Primitive != nullptr)
 	{
 		Primitive->SetSimulatePhysics(bNewState);
 		if(bNewState)
@@ -43,5 +43,13 @@ void UObjectPhysicsToggle::ChangeActivationState(const bool bNewState)
 			Primitive->AddImpulse(ImpulseAdded, FName(""));
 		}
 	}
+}
+
+void UObjectPhysicsToggle::OnPlayerRespawn()
+{
+	Super::OnPlayerRespawn();
+
+	Primitive->SetSimulatePhysics(bDefaultState);
+	GetOwner()->SetActorLocation(InitialPosition);
 }
 

@@ -1,7 +1,10 @@
 // Copyright Frank Severijns 2020
 
-
 #include "Switch.h"
+#include "DungeonEscapeGameInstance.h"
+#include "GameResetter.h"
+#include "Respawnable.h"
+#include "SwitchObserver.h"
 
 // Sets default values for this component's properties
 USwitch::USwitch()
@@ -19,6 +22,11 @@ void USwitch::BeginPlay()
 {
 	Super::BeginPlay();
 
+	bDefaultSwitchState = bCurrentSwitchState;
+
+	UDungeonEscapeGameInstance* Instance = GetOwner()->GetGameInstance<UDungeonEscapeGameInstance>();
+	Instance->GetResetter()->RegisterRespawnable(this);
+
 	if(AffectedActors.Num() == 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s does not specify any affected actors!"), *GetOwner()->GetName());
@@ -27,17 +35,20 @@ void USwitch::BeginPlay()
 
 	for(AActor* Actor : AffectedActors)
 	{
-		TArray<USwitchObserver*> Observers;
-		Actor->GetComponents<USwitchObserver>(Observers);
-
-		if(Observers.Num() == 0)
+		if(Actor && Actor != nullptr)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("%s is assigned to %s as an affected actor, but has no Components that derive from USwitchObserver!"), *Actor->GetName(), *GetOwner()->GetName());
-			continue;
-		}
+			TArray<USwitchObserver*> Observers;
+			Actor->GetComponents<USwitchObserver>(Observers);
 
-		SwitchObservers.Append(Observers);
-		UE_LOG(LogTemp, Warning, TEXT("%s appended %i Switch Observers!"), *Actor->GetName(), Observers.Num());
+			if(Observers.Num() == 0)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("%s is assigned to %s as an affected actor, but has no Components that derive from USwitchObserver!"), *Actor->GetName(), *GetOwner()->GetName());
+				continue;
+			}
+
+			SwitchObservers.Append(Observers);
+			UE_LOG(LogTemp, Warning, TEXT("%s appended %i Switch Observers!"), *Actor->GetName(), Observers.Num());
+		}
 	}	
 }
 
@@ -61,7 +72,21 @@ void USwitch::NotifyObservers(const bool bSwitchState)
 	for(USwitchObserver* Observer : SwitchObservers)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Notifying observer %s"), *Observer->GetOwner()->GetName());
-		Observer->OnSwitchStateChanged(bSwitchState);
+		Observer->OnSwitchStateChanged(bIsToggle ? !Observer->GetCurrentState() : bSwitchState); // If the switch is a toggle, pass the inverted state of the observer, else pass the state of the switch
+	}
+}
+
+void USwitch::OnPlayerRespawn()
+{
+	bCurrentSwitchState = bDefaultSwitchState;
+}
+
+void USwitch::OnCheckpointReached()
+{
+	if(bCurrentSwitchState != bDefaultSwitchState)
+	{
+		UDungeonEscapeGameInstance* Instance = GetOwner()->GetGameInstance<UDungeonEscapeGameInstance>();
+		Instance->GetResetter()->UnregisterRespawnable(this);
 	}
 }
 

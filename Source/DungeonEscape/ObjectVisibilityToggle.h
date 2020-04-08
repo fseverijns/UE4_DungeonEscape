@@ -8,7 +8,6 @@
 #include "SwitchObserver.h"
 #include "ObjectVisibilityToggle.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectVisibilityToggle : public USwitchObserver
 {
@@ -22,6 +21,8 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	virtual void ChangeActivationState(const bool bNewState) override;
+	// Reset the object to its initial state
+	virtual void OnPlayerRespawn() override;
 
 public:	
 	// Called every frame

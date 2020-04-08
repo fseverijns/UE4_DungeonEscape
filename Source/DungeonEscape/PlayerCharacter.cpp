@@ -35,6 +35,11 @@ void APlayerCharacter::Tick(float DeltaTime)
 	}
 }
 
+void APlayerCharacter::SetPlayerMovementAllowed(const bool bAllowed)
+{
+	bMovementAllowed = bAllowed;
+}
+
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -65,6 +70,11 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void APlayerCharacter::MoveForward(float Axis)
 {
+	if(!bMovementAllowed)
+	{
+		return;
+	}
+
 	FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
 
 	if(bPressedSprint && Axis > 0.0f)
@@ -77,6 +87,11 @@ void APlayerCharacter::MoveForward(float Axis)
 
 void APlayerCharacter::MoveRight(float Axis)
 {
+	if(!bMovementAllowed)
+	{
+		return;
+	}
+
 	FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
 
 	AddMovementInput(Direction, Axis);
@@ -84,16 +99,31 @@ void APlayerCharacter::MoveRight(float Axis)
 
 void APlayerCharacter::LookVertical(float Axis)
 {
+	if(!bMovementAllowed)
+	{
+		return;
+	}
+
 	AddControllerPitchInput(-Axis);
 }
 
 void APlayerCharacter::LookHorizontal(float Axis)
 {
+	if(!bMovementAllowed)
+	{
+		return;
+	}
+
 	AddControllerYawInput(Axis);
 }
 
 void APlayerCharacter::StartJump()
 {
+	if(!bMovementAllowed)
+	{
+		return;
+	}
+	
 	bPressedJump = true;
 }
 
@@ -110,6 +140,11 @@ void APlayerCharacter::ToggleCrouch()
 		return;
 	}
 
+	if(!bMovementAllowed)
+	{
+		return;
+	}
+
 	Crouch();
 }
 
@@ -120,6 +155,11 @@ void APlayerCharacter::StopCrouch()
 
 void APlayerCharacter::StartSprint()
 {
+	if(!bMovementAllowed)
+	{
+		return;
+	}
+	
 	UE_LOG(LogTemp, Warning, TEXT("Start sprint"));
 	bPressedSprint = true;
 	SprintIdleTimer = 0.0f;

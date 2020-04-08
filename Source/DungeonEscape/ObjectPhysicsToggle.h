@@ -9,7 +9,6 @@
 #include "SwitchObserver.h"
 #include "ObjectPhysicsToggle.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectPhysicsToggle : public USwitchObserver
 {
@@ -27,10 +26,17 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	// Reset the object to its initial state
+	virtual void OnPlayerRespawn() override;
 
 private:
 	// Impulse added to the object when physics are enabled
 	UPROPERTY(EditAnywhere)
 	FVector ImpulseAdded = FVector(0,0,0);
-		
+
+	//The primitive component used to toggle physics
+	UPrimitiveComponent* Primitive;
+
+	// Initial object position
+	FVector InitialPosition;		
 };

@@ -1,6 +1,5 @@
 // Copyright Frank Severijns 2020
 
-
 #include "ObjectTransformer.h"
 
 #define OUT
@@ -21,10 +20,7 @@ void UObjectTransformer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if(bAutoActivated)
-	{
-		ChangeActivationState(true);
-	}
+	Object = GetOwner()->GetRootComponent();
 }
 
 
@@ -77,12 +73,11 @@ void UObjectTransformer::ProcessActivationState(const float DeltaTime)
 
 	if(bActivationState)
 	{
-		bool TransformCompleted = false;
-		Transform(DeltaTime, OUT TransformCompleted);	
+		bool bTransformCompleted = false;
+		Transform(DeltaTime, OUT bTransformCompleted);	
 
-		if(TransformCompleted)
+		if(bTransformCompleted)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("%s transform completed!"), *GetOwner()->GetName());
 			if(bLoop)
 			{
 				bLoopIsReversing = !bLoopIsReversing;
@@ -100,10 +95,10 @@ void UObjectTransformer::ProcessActivationState(const float DeltaTime)
 		bLoopIsReversing = false;
 		bIsReversing = true;
 
-		bool TransformCompleted = false;
-		Transform(DeltaTime, OUT TransformCompleted);	
+		bool bTransformCompleted = false;
+		Transform(DeltaTime, OUT bTransformCompleted);	
 
-		if(TransformCompleted)
+		if(bTransformCompleted)
 		{
 			bIsReversing = false;
 			bTransformInProgress = false;
@@ -112,8 +107,23 @@ void UObjectTransformer::ProcessActivationState(const float DeltaTime)
 	}
 }
 
-void UObjectTransformer::Transform(float DeltaTime, bool& out_TransformCompleted)
+void UObjectTransformer::Transform(float DeltaTime, bool& out_bTransformCompleted)
 {
 	// Implemented by derived classes
 }
 
+void UObjectTransformer::OnPlayerRespawn()
+{
+	Super::OnPlayerRespawn();
+
+	if(!bLoop)
+	{
+		bTransformInProgress = false;
+	}
+	
+	bLoopIsReversing = false;
+	bIsReversing = false;
+	Speed = 0;
+
+	// Implemented by derived classes
+}

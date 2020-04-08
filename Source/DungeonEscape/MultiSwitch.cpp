@@ -1,7 +1,7 @@
 // Copyright Frank Severijns 2020
 
-
 #include "MultiSwitch.h"
+#include "SwitchObserver.h"
 
 // Sets default values for this component's properties
 UMultiSwitch::UMultiSwitch()
@@ -19,26 +19,23 @@ void UMultiSwitch::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for(FSubSwitch SubSwitch : Switches)
+	for(FSubSwitchObserver& SubSwitchObserver : SubSwitchObservers)
 	{
-		if(!SubSwitch.SwitchActor || SubSwitch.SwitchActor == nullptr)
+		if(!SubSwitchObserver.SwitchObserverActor || SubSwitchObserver.SwitchObserverActor == nullptr)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s has an unassigned SubSwitch!"), *GetOwner()->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s has an unassigned SubSwitchObserver!"), *GetOwner()->GetName());
 			return;
 		}
 
-		SubSwitch.Switch = SubSwitch.SwitchActor->FindComponentByClass<USwitch>();
-		if(!SubSwitch.Switch || SubSwitch.Switch == nullptr)
+		SubSwitchObserver.SwitchObserver = SubSwitchObserver.SwitchObserverActor->FindComponentByClass<USwitchObserver>();
+		if(!SubSwitchObserver.SwitchObserver || SubSwitchObserver.SwitchObserver == nullptr)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s has SubSwitch %s, but the SubSwitch Actor has no derivative of Switch attached!"), *GetOwner()->GetName(), *SubSwitch.SwitchActor->GetName());
-			return;
-		}
-		else if(SubSwitch.Switch == this)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("SubSwitch assignment error on %s: You cannot assign a MultiSwitch to itself!"), *GetOwner()->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s has SubSwitchObserver %s, but the SubSwitch Actor has no derivative of SwitchObserver attached!"), *GetOwner()->GetName(), *SubSwitchObserver.SwitchObserverActor->GetName());
 			return;
 		}
 	}
+
+	bInitialized = true;
 }
 
 
@@ -46,6 +43,11 @@ void UMultiSwitch::BeginPlay()
 void UMultiSwitch::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if(!bInitialized)
+	{
+		return;
+	}
 
 	bool bSubSwitchStatesCorrect = CheckSubSwitchStates();
 	if(bSubSwitchStatesCorrect &&  !bCurrentSwitchState)
@@ -62,12 +64,21 @@ void UMultiSwitch::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 
 bool UMultiSwitch::CheckSubSwitchStates()
 {
-	for(FSubSwitch SubSwitch : Switches)
+	for(FSubSwitchObserver SubSwitch : SubSwitchObservers)
 	{
-		if(SubSwitch.Switch->GetSwitchState() != SubSwitch.bDesiredState)
+		if(SubSwitch.SwitchObserver && SubSwitch.SwitchObserver != nullptr)
 		{
+			if(SubSwitch.SwitchObserver->GetCurrentState() != SubSwitch.bDesiredState)
+			{
+				return false;
+			}
+		}
+		else
+		{	
+			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s is trying to evaluate a non-existent switch observer!"), *GetOwner()->GetName());
 			return false;
 		}
+		
 	}
 
 	return true;

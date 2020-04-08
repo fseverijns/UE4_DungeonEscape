@@ -17,8 +17,6 @@ UObjectRotator::UObjectRotator()
 void UObjectRotator::BeginPlay()
 {
 	Super::BeginPlay();
-
-	USceneComponent* Object = GetOwner()->GetRootComponent();
 }
 
 
@@ -28,10 +26,8 @@ void UObjectRotator::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void UObjectRotator::Transform(float DeltaTime, bool& out_TransformCompleted)
+void UObjectRotator::Transform(float DeltaTime, bool& out_bTransformCompleted)
 {
-	USceneComponent* Object = GetOwner()->GetRootComponent();
-	
 	FRotator CurrentRotation = Object->GetRelativeRotation();
 	FRotator TargetRotation = ObjectEndRotation;
 
@@ -51,13 +47,20 @@ void UObjectRotator::Transform(float DeltaTime, bool& out_TransformCompleted)
 
 	FRotator NewRotation = FMath::Lerp(CurrentRotation, TargetRotation, DeltaTime * Speed);
 
-	out_TransformCompleted = CurrentRotation.Equals(TargetRotation, CompletionErrorTolerance);
+	out_bTransformCompleted = CurrentRotation.Equals(TargetRotation, CompletionErrorTolerance);
 
-	if(out_TransformCompleted)
+	if(out_bTransformCompleted)
 	{
 		Speed = 0;
 	}
 
 	Object->SetRelativeRotation(NewRotation);
+}
+
+void UObjectRotator::OnPlayerRespawn()
+{
+	Super::OnPlayerRespawn();
+
+	Object->SetRelativeRotation(bDefaultState ? ObjectEndRotation : ObjectStartRotation);
 }
 

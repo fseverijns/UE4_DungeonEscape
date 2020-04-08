@@ -8,7 +8,6 @@
 #include "ObjectTransformer.h"
 #include "ObjectRotator.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectRotator : public UObjectTransformer
 {
@@ -22,11 +21,13 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	// Rotates the object
-	virtual void Transform(float DeltaTime, bool& out_TransformCompleted) override;
+	virtual void Transform(float DeltaTime, bool& out_bTransformCompleted) override;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	// Reset the object to its initial state
+	virtual void OnPlayerRespawn() override;
 
 private:
 

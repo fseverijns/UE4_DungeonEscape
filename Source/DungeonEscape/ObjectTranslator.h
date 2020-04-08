@@ -8,7 +8,6 @@
 #include "ObjectTransformer.h"
 #include "ObjectTranslator.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectTranslator : public UObjectTransformer
 {
@@ -22,13 +21,14 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	// Translates the object
-	virtual void Transform(float DeltaTime, bool& out_TransformCompleted) override;
+	virtual void Transform(float DeltaTime, bool& out_bTransformCompleted) override;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	// Reset the object to its initial state
+	virtual void OnPlayerRespawn() override;
 	
-
 private:
 	void Translate();
 

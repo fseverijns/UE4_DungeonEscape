@@ -8,26 +8,24 @@
 #include "Switch.h"
 #include "MultiSwitch.generated.h"
 
+// Forward Declarations
+class USwitchObserver;
+
 USTRUCT()
-struct FSubSwitch
+struct FSubSwitchObserver
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere)
-	AActor* SwitchActor;
+	AActor* SwitchObserverActor = nullptr;
 	UPROPERTY(EditAnywhere)
 	bool bDesiredState;
 
-	USwitch* Switch = nullptr;
-
-	FSubSwitch()
-	{
-		SwitchActor = nullptr;
-		bDesiredState = false;
-	}
+	UPROPERTY()
+	USwitchObserver* SwitchObserver = nullptr;
 };
 
-// A switch that is activated when all switches appointed to it are set to a certain state
+// A switch that is activated when all switchobservers appointed to it are set to a certain state
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UMultiSwitch : public USwitch
 {
@@ -47,9 +45,10 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-	TArray<FSubSwitch> Switches;
+	TArray<FSubSwitchObserver> SubSwitchObservers;
 
 	bool bCurrentState = false;
+	bool bInitialized = false;
 
 	bool CheckSubSwitchStates();
 };

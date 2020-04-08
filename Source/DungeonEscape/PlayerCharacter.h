@@ -69,6 +69,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Enable/disable player movement
+	void SetPlayerMovementAllowed(const bool bAllowed);
+
 private:
 	// How much time in seconds the player can stand still before sprinting is stopped
 	UPROPERTY(EditAnywhere)
@@ -81,5 +84,8 @@ private:
 	bool bPressedSprint;
 	float SprintIdleTimer = 0.0f;
 	float MaxWalkSpeed = 600;
+
+	// Can be set to false to block all player character movement
+	bool bMovementAllowed = true;
 
 };

@@ -1,6 +1,5 @@
 // Copyright Frank Severijns 2020
 
-
 #include "InteractWithItemSwitch.h"
 
 UInteractWithItemSwitch::UInteractWithItemSwitch()

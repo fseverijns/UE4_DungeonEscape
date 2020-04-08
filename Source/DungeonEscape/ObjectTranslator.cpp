@@ -1,6 +1,5 @@
 // Copyright Frank Severijns 2020
 
-
 #include "ObjectTranslator.h"
 
 // Sets default values for this component's properties
@@ -18,8 +17,6 @@ UObjectTranslator::UObjectTranslator()
 void UObjectTranslator::BeginPlay()
 {
 	Super::BeginPlay();
-
-	USceneComponent* Object = GetOwner()->GetRootComponent();
 }
 
 
@@ -31,10 +28,8 @@ void UObjectTranslator::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	// ...
 }
 
-void UObjectTranslator::Transform(float DeltaTime, bool& out_TransformCompleted)
+void UObjectTranslator::Transform(float DeltaTime, bool& out_bTransformCompleted)
 {
-	USceneComponent* Object = GetOwner()->GetRootComponent();
-	
 	FVector CurrentLocation = Object->GetRelativeLocation();
 	FVector TargetLocation = ObjectEndLocation;
 
@@ -54,9 +49,9 @@ void UObjectTranslator::Transform(float DeltaTime, bool& out_TransformCompleted)
 
 	FVector NewPosition = FMath::Lerp(CurrentLocation, TargetLocation, DeltaTime * Speed);
 
-	out_TransformCompleted = CurrentLocation.Equals(TargetLocation, CompletionErrorTolerance);
+	out_bTransformCompleted = CurrentLocation.Equals(TargetLocation, CompletionErrorTolerance);
 
-	if(out_TransformCompleted)
+	if(out_bTransformCompleted)
 	{
 		Speed = 0;
 	}
@@ -64,4 +59,12 @@ void UObjectTranslator::Transform(float DeltaTime, bool& out_TransformCompleted)
 	Object->SetRelativeLocation(NewPosition);
 }
 
+void UObjectTranslator::OnPlayerRespawn()
+{
+	Super::OnPlayerRespawn();
+
+	UE_LOG(LogTemp, Warning, TEXT("RESET %s"), *GetOwner()->GetName());
+
+	Object->SetRelativeLocation(bDefaultState ? ObjectEndLocation : ObjectStartLocation);
+}
 
