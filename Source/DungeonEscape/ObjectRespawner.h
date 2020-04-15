@@ -7,7 +7,8 @@
 #include "GameFramework/Actor.h"
 #include "ObjectRespawner.generated.h"
 
-
+/*	Add this component to an actor to move it back to its initial position when it touches a DeathCollider. 
+*/
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectRespawner : public UActorComponent
 {

@@ -172,3 +172,8 @@ void APlayerCharacter::StopSprint()
 	bPressedSprint = false;
 	GetCharacterMovement()->MaxWalkSpeed = MaxWalkSpeed;
 }
+
+float APlayerCharacter::GetWeight()
+{
+	return WeightInKg;
+}

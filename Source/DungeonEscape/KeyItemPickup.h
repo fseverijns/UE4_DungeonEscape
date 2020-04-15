@@ -10,7 +10,9 @@
 #include "KeyItemInventory.h"
 #include "KeyItemPickup.generated.h"
 
-
+/*	Add this component to an actor to make it a Key Item that can be picked up by the player, marking the corresponding Key Item as "collected".
+*	These are used by the InteractWithKeyItemSwitches to, for example, open a door that requires a key.
+*/
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UKeyItemPickup : public UActorComponent
 {
@@ -31,9 +33,11 @@ public:
 	void PickUp();
 
 private:
+	// The type of Key Item
 	UPROPERTY(EditAnywhere)
 	EKeyItemId KeyItemId;
 
+	// The particle effect (optional)
 	UPROPERTY(EditAnywhere)
 	AActor* PickupParticleFX;
 };

@@ -19,6 +19,7 @@ void UObjectMaterialChanger::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Get the Mesh component (log a warning if there is no mesh component)
 	Mesh = GetOwner()->FindComponentByClass<UStaticMeshComponent>();
 	if(!Mesh || Mesh == nullptr)
 	{
@@ -36,6 +37,7 @@ void UObjectMaterialChanger::TickComponent(float DeltaTime, ELevelTick TickType,
 	// ...
 }
 
+// Change the material to based on the state of the SwitchObserver.
 void UObjectMaterialChanger::ChangeActivationState(const bool bNewState)
 {
 	Super::ChangeActivationState(bNewState);
@@ -46,6 +48,7 @@ void UObjectMaterialChanger::ChangeActivationState(const bool bNewState)
 	}
 }
 
+// Reset the material to the default state
 void UObjectMaterialChanger::OnPlayerRespawn()
 {
 	if(Mesh && Mesh != nullptr)

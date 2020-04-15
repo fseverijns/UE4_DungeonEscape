@@ -33,7 +33,7 @@ public:
 private:
 	// Distance from which the player can grab objects
 	UPROPERTY(EditAnywhere)
-	int32 Reach = 100;
+	int32 Reach = 150;
 	// How much weight the player can carry
 	UPROPERTY(EditAnywhere)
 	int32 MaximumCarryWeight = 20;

@@ -72,6 +72,9 @@ public:
 	// Enable/disable player movement
 	void SetPlayerMovementAllowed(const bool bAllowed);
 
+	// Get the weight of the player actor
+	float GetWeight();
+
 private:
 	// How much time in seconds the player can stand still before sprinting is stopped
 	UPROPERTY(EditAnywhere)
@@ -81,8 +84,16 @@ private:
 	UPROPERTY(EditAnywhere)
 	float MaxSprintSpeed = 1200;
 
+	// Weight of the player in Kilograms
+	UPROPERTY(EditAnywhere)
+	float WeightInKg = 70;
+
+
+	// Player has pressed the sprint button
 	bool bPressedSprint;
+	// How long since pressing sprint has the player been idle (non-moving)
 	float SprintIdleTimer = 0.0f;
+	// Store the max walk speed here to reset the walk speed after sprinting
 	float MaxWalkSpeed = 600;
 
 	// Can be set to false to block all player character movement

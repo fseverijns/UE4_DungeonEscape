@@ -31,6 +31,7 @@ void UObjectPhysicsToggle::TickComponent(float DeltaTime, ELevelTick TickType, F
 	// ...
 }
 
+// Activate or deactive physics based on the switchobserver state
 void UObjectPhysicsToggle::ChangeActivationState(const bool bNewState)
 {
 	Super::ChangeActivationState(bNewState);
@@ -40,11 +41,12 @@ void UObjectPhysicsToggle::ChangeActivationState(const bool bNewState)
 		Primitive->SetSimulatePhysics(bNewState);
 		if(bNewState)
 		{
-			Primitive->AddImpulse(ImpulseAdded, FName(""));
+			Primitive->AddImpulse(ImpulseAdded, FName("")); // Add impulse
 		}
 	}
 }
 
+// Reset the physics and location when player respawns
 void UObjectPhysicsToggle::OnPlayerRespawn()
 {
 	Super::OnPlayerRespawn();

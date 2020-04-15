@@ -14,6 +14,11 @@
 class IRespawnable;
 class UPlayerRespawner;
 
+/*	Add this component to a trigger to create a checkpoint.
+* 	When the player (with a PlayerRespawner component) enters the checkpoint trigger, it is marked as the player's respawn point.
+*	The player character is warped to the last checkpoint trigger's location when the player character is killed.
+*	After the player has passed a checkpoint and reaches a new checkpoint, the last checkpoint cannot be the respawn point again.
+*/
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UCheckpoint : public UActorComponent
 {
@@ -44,8 +49,6 @@ private:
 	bool bPlayerEnteredCheckpoint = false;
 	// The respawn coordinates
 	FVector RespawnLocation;
-	// The player rotation at respawn
-	FRotator RespawnRotation;
 	// The player actor
 	AActor* PlayerActor;
 };

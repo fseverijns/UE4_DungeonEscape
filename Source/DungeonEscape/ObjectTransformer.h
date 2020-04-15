@@ -12,6 +12,9 @@
 #include "SwitchObserver.h"
 #include "ObjectTransformer.generated.h"
 
+/* 	A SwitchObserver derivative. Cannot be used directly, instead use a derived component (such as ObjectRotator)
+*	Handles the activation logic.
+*/
 UCLASS( ClassGroup=(Custom), abstract, meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectTransformer : public USwitchObserver
 {
@@ -51,6 +54,10 @@ protected:
 	UPROPERTY(EditAnywhere)
 	bool bAutoReverse; 
 
+	// Delay before the object starts looping
+	UPROPERTY(EditAnywhere)
+	float LoopStartDelay = 0.0f;
+
 	// Delay before the object starts transforming to its activated state
 	UPROPERTY(EditAnywhere)
 	float TransformDelay = 0.0f;
@@ -73,6 +80,8 @@ protected:
 
 	// Indicates the activation state of the object has changed
 	bool bTransformInProgress = false; 
+	// Indicates the loop has started
+	bool bLoopStarted = false; 
 	// Timer that starts after activation/deactivation to implement a delay
 	float DelayTimer = 0.0f; 
 	// Indicates that the object is reversing as part of a loop (bLoop is true)

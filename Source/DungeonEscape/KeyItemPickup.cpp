@@ -33,10 +33,10 @@ void UKeyItemPickup::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 
 void UKeyItemPickup::PickUp()
 {
-	UE_LOG(LogTemp, Warning, TEXT("PickUp"));
-	AActor* Player = GetWorld()->GetFirstPlayerController()->GetPawn();
-	UKeyItemInventory* Inventory = Player->FindComponentByClass<UKeyItemInventory>();
+	AActor* Player = GetWorld()->GetFirstPlayerController()->GetPawn(); // Get the player actor
+	UKeyItemInventory* Inventory = Player->FindComponentByClass<UKeyItemInventory>(); // Get the inventory component
 
+	// If the inventory component is found, mark the item as collected and hide the actor
 	if(Inventory && Inventory != nullptr)
 	{
 		Inventory->SetItemCollected(KeyItemId, true);
@@ -44,6 +44,7 @@ void UKeyItemPickup::PickUp()
 		GetOwner()->SetActorHiddenInGame(true);
 		GetOwner()->SetActorEnableCollision(false);
 
+		// If a particle effect is associated with this pickup, hide that as well
 		if(PickupParticleFX && PickupParticleFX != nullptr)
 		{
 			PickupParticleFX->SetActorHiddenInGame(true);

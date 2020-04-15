@@ -30,11 +30,13 @@ void UInteractSwitch::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	// ...
 }
 
+// Called when player interacts (through Interacter component)
 void UInteractSwitch::OnInteractStart()
 {
 	NotifyObservers(!bCurrentSwitchState);
 }
 
+// Called when player stops interacting (through Interacter component)
 void UInteractSwitch::OnInteractStop()
 {
 	if(bDetectInteractRelease)

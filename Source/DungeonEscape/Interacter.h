@@ -14,6 +14,9 @@
 // Forward Declarations
 class UInteractSwitch;
 
+/*	A component attached to the player that allows it to interact with certain objects in the world.
+* 	These "interactible" objects will have a "InteractSwitch" or "KeyItemPickup" component attached.
+*/
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UInteracter : public UActorComponent
 {
@@ -34,7 +37,7 @@ public:
 private:
 	// Distance from which the player can interact with objects
 	UPROPERTY(EditAnywhere)
-	float Reach = 100;
+	float Reach = 150;
 
 	// Input component that lets us bind the interact buttons
 	UInputComponent* InputHandler = nullptr;

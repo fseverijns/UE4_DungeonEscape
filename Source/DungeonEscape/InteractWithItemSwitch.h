@@ -10,6 +10,10 @@
 #include "InteractSwitch.h"
 #include "InteractWithItemSwitch.generated.h"
 
+/* 	Derivate of Interact Switch. Notifies Switch Observers to change their state.
+*	Responds to player interacting with the actor (by pressing interact key).
+*	The player needs a Key Item in order to interact.
+*/
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class DUNGEONESCAPE_API UInteractWithItemSwitch : public UInteractSwitch
 {
@@ -31,6 +35,7 @@ public:
 	virtual void OnInteractStart() override;
 
 protected:
+	// The Key Item required to interact
 	UPROPERTY(EditAnywhere)
 	EKeyItemId KeyItemId = EKeyItemId::LeverHandle;
 

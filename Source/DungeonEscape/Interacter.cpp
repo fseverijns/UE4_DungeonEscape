@@ -20,6 +20,7 @@ void UInteracter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Bind the interact key
 	BindInput();
 }
 
@@ -32,6 +33,7 @@ void UInteracter::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	// ...
 }
 
+// Bind the interact input to call the respective functions
 void UInteracter::BindInput()
 {
 	InputHandler = GetOwner()->FindComponentByClass<UInputComponent>();
@@ -42,16 +44,20 @@ void UInteracter::BindInput()
 	}
 }
 
+//	Interacts with an object within reach 
 void UInteracter::StartInteract()
 {
+	// First check if there is something in reach
 	AActor* Interactible = FindFirstActorInReach();
 	
+	// If nothing is in reach, do nothing (print a log message for debugging)
 	if(!Interactible || Interactible == nullptr)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Did not interact with anything."));
 		return;
 	}
 
+	// If the actor in reach has an interact switch component, we tell that switch we are interacting
 	UInteractSwitch* InteractSwitch = Interactible->FindComponentByClass<UInteractSwitch>();
 	if(InteractSwitch && InteractSwitch != nullptr)
 	{
@@ -60,6 +66,7 @@ void UInteracter::StartInteract()
 		InteractSwitch->OnInteractStart();
 	}
 
+	// If the actor in reach has a key item pickup component, we pick up that item
 	UKeyItemPickup* ItemPickup = Interactible->FindComponentByClass<UKeyItemPickup>();
 	if(ItemPickup && ItemPickup != nullptr)
 	{
@@ -68,6 +75,8 @@ void UInteracter::StartInteract()
 	}
 }
 
+// If something is being interacted with but we let go of the interact key, stop the interaction 
+// (this only works on interact switches that require the player to hold interact)
 void UInteracter::StopInteract()
 {
 	if(InteractingWith && InteractingWith != nullptr)
@@ -76,6 +85,7 @@ void UInteracter::StopInteract()
 	}
 }
 
+// Get an actor within reach
 AActor* UInteracter::FindFirstActorInReach() const
 {
 	AActor* Interactible = nullptr;

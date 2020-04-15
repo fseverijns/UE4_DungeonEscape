@@ -9,6 +9,10 @@
 #include "SwitchObserver.h"
 #include "ObjectPhysicsToggle.generated.h"
 
+/* 	A SwitchObserver derivative. Can be assigned to any Switch component.
+*	When activated/deactivated, it enables or disables the physics on the actor.
+*	Optionally it can also add an impulse when physics are enabled.
+*/
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectPhysicsToggle : public USwitchObserver
 {

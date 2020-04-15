@@ -10,6 +10,10 @@
 #include "GameFramework/PlayerController.h"
 #include "DeathCollider.generated.h"
 
+/*	Add this component to a trigger to make it a Death Collider.
+*	When the player (with a PlayerRespawner component) or an object (with the ObjectRespawner component) enters the Death Collider
+*	The player or object is teleported to their respawn location.
+*/
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UDeathCollider : public UActorComponent
 {
@@ -31,9 +35,6 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	// Reset objects with the Object Respawner Component
-	UPROPERTY(EditAnywhere)
-	bool bResetObjects = true;
 	// The trigger actor
 	ATriggerBase* TriggerActor;
 	// The player actor

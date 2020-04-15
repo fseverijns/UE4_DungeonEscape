@@ -32,6 +32,7 @@ void UKeyItemInventory::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	// ...
 }
 
+// Sets the specified key item's collected state to true or false (when picking up or resetting a key item)
 void UKeyItemInventory::SetItemCollected(EKeyItemId KeyItemId, bool bCollectedState)
 {
 	bool bItemFound = false;
@@ -50,6 +51,7 @@ void UKeyItemInventory::SetItemCollected(EKeyItemId KeyItemId, bool bCollectedSt
 	}
 }
 
+// Query the collected state of a Key Item (e.g. to use an InteractWithKeyItemSwitch)
 bool UKeyItemInventory::HasCollectedItem(EKeyItemId KeyItemId)
 {
 	for(FKeyItem KeyItem : KeyItems)

@@ -7,6 +7,9 @@
 #include "SwitchObserver.h"
 #include "ObjectSpinner.generated.h"
 
+/* 	A SwitchObserver derivative. Can be assigned to any Switch component.
+*	While activated, it spins the object around the specified axes.
+*/
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectSpinner : public USwitchObserver
 {
@@ -31,13 +34,17 @@ public:
 	virtual void OnPlayerRespawn() override;
 
 private:
+	// Spin object around X axis
 	UPROPERTY(EditAnywhere)
 	bool bXAxis;
+	// Spin object around Y axis
 	UPROPERTY(EditAnywhere)
 	bool bYAxis;
+	// Spin object around Z axis
 	UPROPERTY(EditAnywhere)
 	bool bZAxis;
 
+	// Rotation speed
 	UPROPERTY(EditAnywhere)
 	float SpinSpeed;
 

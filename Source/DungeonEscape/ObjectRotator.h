@@ -8,6 +8,9 @@
 #include "ObjectTransformer.h"
 #include "ObjectRotator.generated.h"
 
+/* 	A SwitchObserver derivative. Can be assigned to any Switch component.
+*	When activated/deactivated, it Lerps the rotation from its start and end state (and vice versa).
+*/
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectRotator : public UObjectTransformer
 {

@@ -1,6 +1,7 @@
 // Copyright Frank Severijns 2020
 
 #include "TriggerSwitch.h"
+#include "PlayerCharacter.h"
 
 UTriggerSwitch::UTriggerSwitch()
 {
@@ -50,26 +51,35 @@ void UTriggerSwitch::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor*
 {
 	UE_LOG(LogTemp, Warning, TEXT("OVERLAP BEGIN!"));
 
-	if(TriggerActivationType == ETriggerActivationType::Weight)
+	if(TriggerActivationType == ETriggerActivationType::Weight) // Activated by weight
 	{
-		float Weight = OtherComponent->GetMass();
+		float Weight = 0.0f;
+		APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(OtherActor); // Because Player Actor physics are disabled, we need to get its weight from the PlayerCharacter class
+		if(PlayerCharacter && PlayerCharacter != nullptr) // If the overlapping actor is the player we get the weight
+		{
+			Weight = PlayerCharacter->GetWeight();
+		}
+		else // The actor is not the player, get weight from the physics component
+		{
+			Weight = OtherComponent->GetMass();
+		}
 		AddWeight(Weight);
 	}
-	else if(TriggerActivationType == ETriggerActivationType::ActorOfType)
+	else if(TriggerActivationType == ETriggerActivationType::ActorOfType) // Activated by a type of Actor
 	{
 		if(OtherActor->IsA<>(ActorType))
 		{
 			NotifyObservers(true);
 		}
 	}
-	else if(TriggerActivationType == ETriggerActivationType::Actor)
+	else if(TriggerActivationType == ETriggerActivationType::Actor) // Activated by a specific Actor
 	{
 		if(OtherActor == Actor)
 		{
 			NotifyObservers(true);
 		}
 	}
-	else if(TriggerActivationType == ETriggerActivationType::Player)
+	else if(TriggerActivationType == ETriggerActivationType::Player) // Activated by the player actor
 	{
 		if(OtherActor == GetWorld()->GetFirstPlayerController()->GetPawn())
 		{
@@ -82,26 +92,35 @@ void UTriggerSwitch::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor*
 void UTriggerSwitch::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
 {
 	UE_LOG(LogTemp, Warning, TEXT("OVERLAP END!"));
-	if(TriggerActivationType == ETriggerActivationType::Weight)
+	if(TriggerActivationType == ETriggerActivationType::Weight) // Deactivated by weight
 	{
-		float Weight = OtherComponent->GetMass();
+		float Weight = 0.0f;
+		APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(OtherActor); // Because Player Actor physics are disabled, we need to get its weight from the PlayerCharacter class
+		if(PlayerCharacter && PlayerCharacter != nullptr) // If the overlapping actor is the player we get the weight
+		{
+			Weight = PlayerCharacter->GetWeight();
+		}
+		else // The actor is not the player, get weight from the physics component
+		{
+			Weight = OtherComponent->GetMass();
+		}
 		DeductWeight(Weight);
-	}
-	else if(TriggerActivationType == ETriggerActivationType::ActorOfType)
+	} 
+	else if(TriggerActivationType == ETriggerActivationType::ActorOfType) // Deactivated by a type of Actor
 	{
 		if(OtherActor->IsA<>(ActorType))
 		{
 			NotifyObservers(false);
 		}
 	}
-	else if(TriggerActivationType == ETriggerActivationType::Actor)
+	else if(TriggerActivationType == ETriggerActivationType::Actor) // Deactivated by a specific Actor
 	{
 		if(OtherActor == Actor)
 		{
 			NotifyObservers(false);
 		}
 	}
-	else if(TriggerActivationType == ETriggerActivationType::Player)
+	else if(TriggerActivationType == ETriggerActivationType::Player) // Deactivated by the player actor
 	{
 		if(OtherActor == GetWorld()->GetFirstPlayerController()->GetPawn())
 		{

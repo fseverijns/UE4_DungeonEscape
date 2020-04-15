@@ -19,6 +19,7 @@ void UCheckpoint::BeginPlay()
 
 	PlayerActor = GetWorld()->GetFirstPlayerController()->GetPawn();
 
+	// Add the OnComponentOverlap delegate function, to execute code when the player enters the checkpoint trigger
 	TriggerActor = Cast<ATriggerBase>(GetOwner());
 	if(TriggerActor && TriggerActor != nullptr)
 	{
@@ -34,8 +35,8 @@ void UCheckpoint::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("%s must be a Trigger Actor!"), *GetOwner()->GetName());
 	}
 
+
 	RespawnLocation = GetOwner()->GetActorLocation();
-	RespawnRotation = GetOwner()->GetActorRotation();
 }
 
 
@@ -49,25 +50,26 @@ void UCheckpoint::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 
 void UCheckpoint::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	// Ignore the player entering this checkpoint if they already entered it before
 	if(bPlayerEnteredCheckpoint)
 	{
 		return;
 	}
 
+	// If the actor entering this checkpoint is the player, tell the respawner component to use this checkpoint
 	UPlayerRespawner* Respawner = OtherActor->FindComponentByClass<UPlayerRespawner>();
 	if(Respawner && Respawner != nullptr)
 	{
 		bPlayerEnteredCheckpoint = true;
-		RespawnRotation = Respawner->GetOwner()->GetActorRotation();
 		Respawner->OnCheckpointReached(this);
 	}
 }
 
+// Teleport the player to the respawn location (the location of this checkpoint)
 void UCheckpoint::RespawnPlayer()
 {
 	if(PlayerActor && PlayerActor != nullptr)
 	{
-		PlayerActor->SetActorRotation(RespawnRotation);
 		PlayerActor->SetActorLocation(RespawnLocation);
 	}
 }

@@ -39,7 +39,7 @@ void UObjectTranslator::Transform(float DeltaTime, bool& out_bTransformCompleted
 	}
 	else
 	{
-		Speed += FMath::Clamp(Acceleration * DeltaTime, 0.01f, TransformSpeed);
+		Speed = FMath::Clamp(Speed + (Acceleration * DeltaTime), 0.0001f, TransformSpeed);
 	}
 
 	if(bIsReversing)

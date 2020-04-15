@@ -10,7 +10,9 @@
 #include "SwitchObserver.h"
 #include "ObjectMaterialChanger.generated.h"
 
-
+/* 	A SwitchObserver derivative. Can be assigned to any Switch component.
+*	When activated/deactivated, it changes the material of the mesh to the specified material.
+*/
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UObjectMaterialChanger : public USwitchObserver
 {
@@ -39,5 +41,6 @@ private:
 	UPROPERTY(EditAnywhere)
 	UMaterial* DeactivatedMaterial;
 
+	// The mesh of this actor
 	UStaticMeshComponent* Mesh;
 };
