@@ -36,10 +36,18 @@ void UKeyItemInventory::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 void UKeyItemInventory::SetItemCollected(EKeyItemId KeyItemId, bool bCollectedState)
 {
 	bool bItemFound = false;
-	for(FKeyItem KeyItem : KeyItems)
+	for(FKeyItem& KeyItem : KeyItems)
 	{
 		if(KeyItem.KeyItemId == KeyItemId)
 		{
+			if(bCollectedState)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Set item as collected")); 
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Set item as uncollected")); 
+			}	
 			KeyItem.bCollected = bCollectedState;
 			bItemFound = true;
 		}
@@ -47,6 +55,14 @@ void UKeyItemInventory::SetItemCollected(EKeyItemId KeyItemId, bool bCollectedSt
 
 	if(!bItemFound)
 	{
+		if(bCollectedState)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Set NEW item as collected")); 
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Set NEW item as uncollected")); 
+		}
 		KeyItems.Add(FKeyItem(KeyItemId, bCollectedState));
 	}
 }
@@ -54,14 +70,33 @@ void UKeyItemInventory::SetItemCollected(EKeyItemId KeyItemId, bool bCollectedSt
 // Query the collected state of a Key Item (e.g. to use an InteractWithKeyItemSwitch)
 bool UKeyItemInventory::HasCollectedItem(EKeyItemId KeyItemId)
 {
-	for(FKeyItem KeyItem : KeyItems)
+	for(FKeyItem& KeyItem : KeyItems)
 	{
 		if(KeyItem.KeyItemId == KeyItemId)
 		{
+			if(KeyItem.bCollected)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Item is collected")); 
+			}	
 			return KeyItem.bCollected;
 		}
 	}
 
 	return false;
+}
+
+void UKeyItemInventory::AddCoinsCollected(int Amount)
+{
+	CoinsCollected += Amount;
+}
+
+void UKeyItemInventory::RemoveCoinsCollected(int Amount)
+{
+	CoinsCollected -= Amount;
+}
+
+int UKeyItemInventory::GetCoinsCollected()
+{
+	return CoinsCollected;
 }
 

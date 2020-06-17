@@ -69,21 +69,21 @@ void UTriggerSwitch::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor*
 	{
 		if(OtherActor->IsA<>(ActorType))
 		{
-			NotifyObservers(true);
+			NotifySwitchables(true);
 		}
 	}
 	else if(TriggerActivationType == ETriggerActivationType::Actor) // Activated by a specific Actor
 	{
 		if(OtherActor == Actor)
 		{
-			NotifyObservers(true);
+			NotifySwitchables(true);
 		}
 	}
 	else if(TriggerActivationType == ETriggerActivationType::Player) // Activated by the player actor
 	{
 		if(OtherActor == GetWorld()->GetFirstPlayerController()->GetPawn())
 		{
-			NotifyObservers(true);
+			NotifySwitchables(true);
 		}
 	}
 	
@@ -110,21 +110,21 @@ void UTriggerSwitch::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* O
 	{
 		if(OtherActor->IsA<>(ActorType))
 		{
-			NotifyObservers(false);
+			NotifySwitchables(false);
 		}
 	}
 	else if(TriggerActivationType == ETriggerActivationType::Actor) // Deactivated by a specific Actor
 	{
 		if(OtherActor == Actor)
 		{
-			NotifyObservers(false);
+			NotifySwitchables(false);
 		}
 	}
 	else if(TriggerActivationType == ETriggerActivationType::Player) // Deactivated by the player actor
 	{
 		if(OtherActor == GetWorld()->GetFirstPlayerController()->GetPawn())
 		{
-			NotifyObservers(false);
+			NotifySwitchables(false);
 		}
 	}
 }
@@ -134,10 +134,10 @@ void UTriggerSwitch::AddWeight(float Weight)
 {	
 	float NewWeight = CurrentWeight + Weight;
 
-	// Notify the switch's observers if the new weight equals or exceeds the weight threshold
+	// Notify the switch's Switchables if the new weight equals or exceeds the weight threshold
 	if(CurrentWeight < WeightThreshold && NewWeight >= WeightThreshold)
 	{
-		NotifyObservers(true);
+		NotifySwitchables(true);
 	}
 
 	CurrentWeight = NewWeight;
@@ -148,10 +148,10 @@ void UTriggerSwitch::DeductWeight(float Weight)
 {
 	float NewWeight = CurrentWeight - Weight;
 
-	// Notify the switch's observers if the new weight is below the weight threshold
+	// Notify the switch's Switchables if the new weight is below the weight threshold
 	if(CurrentWeight >= WeightThreshold && NewWeight < WeightThreshold)
 	{
-		NotifyObservers(false);
+		NotifySwitchables(false);
 	}
 
 	CurrentWeight = NewWeight;

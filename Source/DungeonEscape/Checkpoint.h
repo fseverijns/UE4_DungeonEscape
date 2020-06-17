@@ -11,7 +11,6 @@
 #include "Checkpoint.generated.h"
 
 // Forward Declarations
-class IRespawnable;
 class UPlayerRespawner;
 
 /*	Add this component to a trigger to create a checkpoint.
@@ -40,7 +39,6 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	// Called when player character dies
 	void RespawnPlayer();
-	
 
 private:
 	// The trigger actor

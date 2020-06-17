@@ -10,7 +10,7 @@
 #include "InteractSwitch.h"
 #include "InteractWithItemSwitch.generated.h"
 
-/* 	Derivate of Interact Switch. Notifies Switch Observers to change their state.
+/* 	Derivate of Interact Switch. Notifies Switchables to change their state.
 *	Responds to player interacting with the actor (by pressing interact key).
 *	The player needs a Key Item in order to interact.
 */
@@ -27,12 +27,18 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	// Check if conditions for interaction are present
+	bool InteractAllowed();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 	// Called when player interacts with switch
 	virtual void OnInteractStart() override;
+
+	// Called when player interacts with switch
+	virtual void OnInteractStop() override;
 
 protected:
 	// The Key Item required to interact

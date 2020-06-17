@@ -9,26 +9,26 @@
 #include "MultiSwitch.generated.h"
 
 // Forward Declarations
-class USwitchObserver;
+class USwitchable;
 
-// A struct were a Switch Observer and its desired state is specified
+// A struct were a Switchable and its desired state is specified
 USTRUCT()
-struct FSubSwitchObserver
+struct FSubSwitchable
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere)
-	AActor* SwitchObserverActor = nullptr;
+	AActor* SwitchableActor = nullptr;
 	UPROPERTY(EditAnywhere)
 	bool bDesiredState;
 
 	UPROPERTY()
-	USwitchObserver* SwitchObserver = nullptr;
+	USwitchable* Switchable = nullptr;
 };
 
-/* 	A switch that is activated when all "SubSwitchObservers" appointed to it are set to a specified state
-* 	Used to create, for example, a combination switch where the player must activate and deactivate certain SwitchObservers
-*	Note that the SubSwitchObservers are NOT notified when this switch changes state.
+/* 	A switch that is activated when all "SubSwitchables" appointed to it are set to a specified state
+* 	Used to create, for example, a combination switch where the player must activate and deactivate certain Switchables
+*	Note that the SubSwitchables are NOT notified when this switch changes state.
 */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API UMultiSwitch : public USwitch
@@ -42,7 +42,7 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	// Validate and initialize the SwitchObserver pointers
+	// Validate and initialize the Switchable pointers
 	void Initialize();
 
 public:	
@@ -50,13 +50,13 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	// The list of switch observers and their desired state
+	// The list of Switchables and their desired state
 	UPROPERTY(EditAnywhere)
-	TArray<FSubSwitchObserver> SubSwitchObservers;
+	TArray<FSubSwitchable> SubSwitchables;
 
 	// The component is ready to Tick
 	bool bInitialized = false;
 
-	// Checks if all SwitchObservers are at the desired state
+	// Checks if all Switchables are at the desired state
 	bool CheckSubSwitchStates();
 };

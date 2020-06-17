@@ -2,6 +2,7 @@
 
 #include "Checkpoint.h"
 #include "PlayerRespawner.h"
+#include "Respawnable.h"
 
 // Sets default values for this component's properties
 UCheckpoint::UCheckpoint()

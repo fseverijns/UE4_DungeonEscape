@@ -19,7 +19,7 @@ void UObjectVisibilityToggle::BeginPlay()
 	Super::BeginPlay();
 
 	GetOwner()->SetActorHiddenInGame(!bVisibleByDefault);
-	GetOwner()->SetActorEnableCollision(bVisibleByDefault);
+	//GetOwner()->SetActorEnableCollision(bVisibleByDefault);
 }
 
 
@@ -31,15 +31,15 @@ void UObjectVisibilityToggle::TickComponent(float DeltaTime, ELevelTick TickType
 	// ...
 }
 
-void UObjectVisibilityToggle::ChangeActivationState(const bool bNewState)
+void UObjectVisibilityToggle::ChangeActivationState(const bool bNewState, bool bPlaySound)
 {
 	GetOwner()->SetActorHiddenInGame(bNewState);
-	GetOwner()->SetActorEnableCollision(!bNewState);
+	//GetOwner()->SetActorEnableCollision(!bNewState);
 }
 
 void UObjectVisibilityToggle::OnPlayerRespawn()
 {
 	GetOwner()->SetActorHiddenInGame(!bVisibleByDefault);
-	GetOwner()->SetActorEnableCollision(bVisibleByDefault);
+	//GetOwner()->SetActorEnableCollision(bVisibleByDefault);
 }
 

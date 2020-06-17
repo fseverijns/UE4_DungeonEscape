@@ -33,6 +33,8 @@ void UObjectScaler::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 
 void UObjectScaler::Transform(float DeltaTime, bool& out_bTransformCompleted)
 {
+	Super::Transform(DeltaTime, out_bTransformCompleted);
+	
 	FVector CurrentScale = Object->GetRelativeScale3D();
 	FVector TargetScale = ObjectEndScale;
 

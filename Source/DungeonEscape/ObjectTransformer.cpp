@@ -37,7 +37,7 @@ void UObjectTransformer::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 }
 
 
-void UObjectTransformer::ChangeActivationState(const bool bNewState)
+void UObjectTransformer::ChangeActivationState(const bool bNewState, bool bPlaySound)
 {
 	if(!bAllowInterrupt && bTransformInProgress) // Check if the object can and is being deactivated, or if it cannot be interrupted
 	{
@@ -54,15 +54,77 @@ void UObjectTransformer::ChangeActivationState(const bool bNewState)
 	}
 
 	bActivationState = bNewState;
+
+	if(bPlaySound)
+	{
+		Super::PlayActivationSound();
+	}
 }
 
 // Go through activation logic (only when bTransformInProgress is true!)
 void UObjectTransformer::ProcessActivationState(const float DeltaTime)
 {
+	float Delay = GetDelayTime();
+
+	// Do not proceed until the DelayTimer exceeds the delay
+	if(DelayTimer < Delay)
+	{
+		DelayTimer += DeltaTime;
+		return;
+	}
+
+	if(bActivationState) // If the Switchable is activated, perform the transform function
+	{
+		bool bTransformCompleted = false;
+		Transform(DeltaTime, OUT bTransformCompleted);	
+
+		if(bTransformCompleted) // When completed, check if it needs to loop (reverse without deactivating)
+		{
+			if(AudioComponent != nullptr && AudioComponent->IsPlaying()) // Stop the audio
+			{
+				//AudioComponent->Stop();
+			}
+
+			if(bLoop)
+			{
+				bLoopStarted = true;
+				bLoopIsReversing = !bLoopIsReversing;
+				bIsReversing = bLoopIsReversing;
+
+				LoopSoundTimer = 0.0f;
+				bLoopSoundPlayed = false;
+			}
+			else // If it does not need to loop, transform is no longer in progress
+			{
+				bTransformInProgress = false;
+			}
+			DelayTimer = 0.0f; // reset the delay timer
+		}
+	}
+	else // If the Switchable is de-activated, reverse to its deactivated state
+	{
+		bLoopIsReversing = false;
+		bIsReversing = true;
+
+		bool bTransformCompleted = false;
+		Transform(DeltaTime, OUT bTransformCompleted);	
+
+		if(bTransformCompleted)
+		{
+			bLoopStarted = false;
+			bIsReversing = false;
+			bTransformInProgress = false;
+			DelayTimer = 0.0f; // reset the delay timer
+		}	
+	}
+}
+
+float UObjectTransformer::GetDelayTime()
+{
 	float Delay = 0.0f;
 
 	// Determine which delay to use
-	if(bActivationState) // If the SwitchObserver is activated, use the transform delay
+	if(bActivationState) // If the Switchable is activated, use the transform delay
 	{
 		Delay = TransformDelay;
 	}
@@ -77,53 +139,30 @@ void UObjectTransformer::ProcessActivationState(const float DeltaTime)
 		Delay += LoopStartDelay;
 	}
 
-	// Do not proceed until the DelayTimer exceeds the delay
-	if(DelayTimer < Delay)
-	{
-		DelayTimer += DeltaTime;
-		return;
-	}
-
-	if(bActivationState) // If the SwitchObserver is activated, perform the transform function
-	{
-		bool bTransformCompleted = false;
-		Transform(DeltaTime, OUT bTransformCompleted);	
-
-		if(bTransformCompleted) // When completed, check if it needs to loop (reverse without deactivating)
-		{
-			if(bLoop)
-			{
-				bLoopStarted = true;
-				bLoopIsReversing = !bLoopIsReversing;
-				bIsReversing = bLoopIsReversing;
-			}
-			else // If it does not need to loop, transform is no longer in progress
-			{
-				bTransformInProgress = false;
-			}
-			DelayTimer = 0.0f; // reset the delay timer
-		}
-	}
-	else // If the SwitchObserver is de-activated, reverse to its deactivated state
-	{
-		bLoopIsReversing = false;
-		bIsReversing = true;
-
-		bool bTransformCompleted = false;
-		Transform(DeltaTime, OUT bTransformCompleted);	
-
-		if(bTransformCompleted)
-		{
-			bIsReversing = false;
-			bTransformInProgress = false;
-			DelayTimer = 0.0f; // reset the delay timer
-		}	
-	}
+	return Delay;
 }
 
 // Transforms the object. Specifics (translation, rotation, etc.) are done by derived classes. Should return true through the out parameter when transform is completed.
 void UObjectTransformer::Transform(float DeltaTime, bool& out_bTransformCompleted)
 {
+	if(bUseSound && bLoop && AudioComponent != nullptr && LoopSound != nullptr) // if a sound should be played during the loop
+	{
+		LoopSoundTimer += DeltaTime;
+		
+		if(LoopSoundTimer > LoopSoundStartDelay && !bLoopSoundPlayed)
+		{
+			AudioComponent->SetSound(LoopSound);
+
+			if(bRandomizeLoopSoundPitch)
+			{
+				AudioComponent->SetPitchMultiplier(FMath::RandRange(-1.f, 1.f));
+			}
+
+			AudioComponent->Play();
+
+			bLoopSoundPlayed = true;
+		}
+	}
 	// Implemented by derived classes
 }
 

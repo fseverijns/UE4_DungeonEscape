@@ -9,14 +9,15 @@
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
 #include "Engine/TriggerVolume.h"
-#include "SwitchObserver.h"
+#include "Sound/SoundBase.h"
+#include "Switchable.h"
 #include "ObjectTransformer.generated.h"
 
-/* 	A SwitchObserver derivative. Cannot be used directly, instead use a derived component (such as ObjectRotator)
+/* 	A Switchable derivative. Cannot be used directly, instead use a derived component (such as ObjectRotator)
 *	Handles the activation logic.
 */
 UCLASS( ClassGroup=(Custom), abstract, meta=(BlueprintSpawnableComponent) )
-class DUNGEONESCAPE_API UObjectTransformer : public USwitchObserver
+class DUNGEONESCAPE_API UObjectTransformer : public USwitchable
 {
 	GENERATED_BODY()
 
@@ -28,13 +29,15 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	// Start transforming the object
-	virtual void ChangeActivationState(const bool bNewState) override; 
+	virtual void ChangeActivationState(const bool bNewState, bool bPlaySound = true) override; 
 	// Processes activation logic
 	virtual void ProcessActivationState(const float DeltaTime);
 	// Transform the object
 	virtual void Transform(float DeltaTime, bool& out_bTransformCompleted);
 	// Reset the object to its initial state
 	virtual void OnPlayerRespawn() override;
+	// Calculate the delay time for transform activation
+	float GetDelayTime();
 
 public:	
 	// Called every frame
@@ -78,6 +81,18 @@ protected:
 	UPROPERTY(EditAnywhere)
 	float CompletionErrorTolerance = 1.0f;
 
+	// The sound effect that plays on a looping transformer. The sound is played once every loop.
+	UPROPERTY(EditAnywhere)
+	USoundBase* LoopSound = nullptr;
+
+	// How far into a loop the sound is played.
+	UPROPERTY(EditAnywhere)
+	float LoopSoundStartDelay = 0.0f;
+
+	// Should the loop sound have a randomized pitch (to reduce repetitiveness of sound)
+	UPROPERTY(EditAnywhere)
+	bool bRandomizeLoopSoundPitch = true;
+
 	// Indicates the activation state of the object has changed
 	bool bTransformInProgress = false; 
 	// Indicates the loop has started
@@ -92,4 +107,9 @@ protected:
 	float Speed;
 	// The scene component
 	USceneComponent* Object;
+	// Timer used to determine when to play the loop sound
+	float LoopSoundTimer = 0.0f;
+	// Whether or not the sound has been played during this loop iteration
+	bool bLoopSoundPlayed = false;
+	
 };

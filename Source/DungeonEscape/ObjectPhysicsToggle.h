@@ -6,15 +6,15 @@
 #include "Components/ActorComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "GameFramework/Actor.h"
-#include "SwitchObserver.h"
+#include "Switchable.h"
 #include "ObjectPhysicsToggle.generated.h"
 
-/* 	A SwitchObserver derivative. Can be assigned to any Switch component.
+/* 	A Switchable derivative. Can be assigned to any Switch component.
 *	When activated/deactivated, it enables or disables the physics on the actor.
 *	Optionally it can also add an impulse when physics are enabled.
 */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class DUNGEONESCAPE_API UObjectPhysicsToggle : public USwitchObserver
+class DUNGEONESCAPE_API UObjectPhysicsToggle : public USwitchable
 {
 	GENERATED_BODY()
 
@@ -25,7 +25,7 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;	
-	virtual void ChangeActivationState(const bool bNewState) override;
+	virtual void ChangeActivationState(const bool bNewState, bool bPlaySound = true) override;
 
 public:	
 	// Called every frame
@@ -42,5 +42,7 @@ private:
 	UPrimitiveComponent* Primitive;
 
 	// Initial object position
-	FVector InitialPosition;		
+	FVector InitialPosition;
+	// Initial object rotation
+	FRotator InitialRotation;
 };

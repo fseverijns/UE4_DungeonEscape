@@ -7,14 +7,14 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/Actor.h"
 #include "Materials/Material.h"
-#include "SwitchObserver.h"
+#include "Switchable.h"
 #include "ObjectMaterialChanger.generated.h"
 
-/* 	A SwitchObserver derivative. Can be assigned to any Switch component.
+/* 	A Switchable derivative. Can be assigned to any Switch component.
 *	When activated/deactivated, it changes the material of the mesh to the specified material.
 */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class DUNGEONESCAPE_API UObjectMaterialChanger : public USwitchObserver
+class DUNGEONESCAPE_API UObjectMaterialChanger : public USwitchable
 {
 	GENERATED_BODY()
 
@@ -29,7 +29,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	virtual void ChangeActivationState(const bool bNewState) override;
+	virtual void ChangeActivationState(const bool bNewState, bool bPlaySound = true) override;
 	// Reset the object to its initial state
 	virtual void OnPlayerRespawn() override;
 

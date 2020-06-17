@@ -2,6 +2,7 @@
 
 #include "Interacter.h"
 #include "KeyItemPickup.h"
+#include "CoinPickup.h"
 #include "InteractSwitch.h"
 
 // Sets default values for this component's properties
@@ -73,6 +74,14 @@ void UInteracter::StartInteract()
 		UE_LOG(LogTemp, Warning, TEXT("Found Pickup %s"), *Interactible->GetName());
 		ItemPickup->PickUp();
 	}
+
+	// If the actor in reach has a coin item pickup component, we pick up that item
+	UCoinPickup* CoinPickup = Interactible->FindComponentByClass<UCoinPickup>();
+	if(CoinPickup && CoinPickup != nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Found Pickup %s"), *Interactible->GetName());
+		CoinPickup->PickUp();
+	}
 }
 
 // If something is being interacted with but we let go of the interact key, stop the interaction 
@@ -82,6 +91,7 @@ void UInteracter::StopInteract()
 	if(InteractingWith && InteractingWith != nullptr)
 	{
 		InteractingWith->OnInteractStop();
+		InteractingWith = nullptr;
 	}
 }
 
@@ -103,7 +113,7 @@ void UInteracter::CastRay(AActor* &out_HitActor) const
 
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
 
-	DrawDebugLine(
+	/*DrawDebugLine(
 		GetWorld(),
 		PlayerViewPointLocation,
 		LineTraceEnd,
@@ -112,7 +122,7 @@ void UInteracter::CastRay(AActor* &out_HitActor) const
 		5.f,
 		0,
 		5.f
-	);
+	);*/
 
 	FHitResult Hit;
 	GetWorld()->LineTraceSingleByObjectType(
@@ -123,6 +133,11 @@ void UInteracter::CastRay(AActor* &out_HitActor) const
 		FCollisionQueryParams(FName(TEXT("")), false, GetOwner())
 	);
 
+	if(Hit.GetActor() != nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Found Actor %s"), *Hit.GetActor()->GetName());
+	}
+	
 	out_HitActor = Hit.GetActor();
 }
 

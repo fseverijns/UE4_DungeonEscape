@@ -35,7 +35,7 @@ void UObjectSpinner::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	}
 }
 
-void UObjectSpinner::ChangeActivationState(const bool bNewState)
+void UObjectSpinner::ChangeActivationState(const bool bNewState, bool bPlaySound)
 {
 	bActivationState = bNewState;
 }

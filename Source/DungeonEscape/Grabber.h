@@ -25,10 +25,22 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	// Find the PhysicsHandleComponent
+	void FindPhysicsHandler();
+	// Bind the input to the Grab and Release functions
+	void BindInput();
+	// Grab a physics object
+	void Grab();
+	// Returns the first actor with physics within reach
+	AActor* FindFirstPhysicsObjectInReach() const;
+	// Cast a ray from the Actor's viewpoint to its reach
+	void CastRay(AActor* &out_HitActor) const;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	// Release the currently held physics object
+	void Release();
 
 private:
 	// Distance from which the player can grab objects
@@ -43,17 +55,4 @@ private:
 	AActor* ObjectInReach;
 	AActor* HeldObject;
 	FVector HeldPosition;
-
-	// Find the PhysicsHandleComponent
-	void FindPhysicsHandler();
-	// Bind the input to the Grab and Release functions
-	void BindInput();
-	// Grab a physics object
-	void Grab();
-	// Release the currently held physics object
-	void Release();
-	// Returns the first actor with physics within reach
-	AActor* FindFirstPhysicsObjectInReach() const;
-	// Cast a ray from the Actor's viewpoint to its reach
-	void CastRay(AActor* &out_HitActor) const;
 };

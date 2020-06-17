@@ -20,6 +20,7 @@ void UObjectPhysicsToggle::BeginPlay()
 
 	Primitive = GetOwner()->FindComponentByClass<UPrimitiveComponent>();
 	InitialPosition = GetOwner()->GetActorLocation();
+	InitialRotation = GetOwner()->GetActorRotation();
 }
 
 
@@ -31,8 +32,8 @@ void UObjectPhysicsToggle::TickComponent(float DeltaTime, ELevelTick TickType, F
 	// ...
 }
 
-// Activate or deactive physics based on the switchobserver state
-void UObjectPhysicsToggle::ChangeActivationState(const bool bNewState)
+// Activate or deactive physics based on the Switchable state
+void UObjectPhysicsToggle::ChangeActivationState(const bool bNewState, bool bPlaySound)
 {
 	Super::ChangeActivationState(bNewState);
 
@@ -53,5 +54,6 @@ void UObjectPhysicsToggle::OnPlayerRespawn()
 
 	Primitive->SetSimulatePhysics(bDefaultState);
 	GetOwner()->SetActorLocation(InitialPosition);
+	GetOwner()->SetActorRotation(InitialRotation);
 }
 

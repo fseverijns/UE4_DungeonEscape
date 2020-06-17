@@ -61,7 +61,17 @@ public:
 	void SetItemCollected(EKeyItemId KeyItemId, bool bCollectedState);
 	// Gets the collected state of the specified key item
 	bool HasCollectedItem(EKeyItemId KeyItemId);
+	// Adds gold to the collected amount
+	void AddCoinsCollected(int Amount);
+	// Removes gold from the collected amount
+	void RemoveCoinsCollected(int Amount);
+	// Get the amount of coins collected
+	UFUNCTION(BlueprintCallable, Category = "Coins")
+	int GetCoinsCollected();
 
 private:
+	// How much gold the player has collected
+	int CoinsCollected = 0;
+
 	TArray<FKeyItem> KeyItems;
 };

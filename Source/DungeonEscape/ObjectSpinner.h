@@ -4,14 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "SwitchObserver.h"
+#include "Switchable.h"
 #include "ObjectSpinner.generated.h"
 
-/* 	A SwitchObserver derivative. Can be assigned to any Switch component.
+/* 	A Switchable derivative. Can be assigned to any Switch component.
 *	While activated, it spins the object around the specified axes.
 */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class DUNGEONESCAPE_API UObjectSpinner : public USwitchObserver
+class DUNGEONESCAPE_API UObjectSpinner : public USwitchable
 {
 	GENERATED_BODY()
 
@@ -23,7 +23,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	// What to do when the switch state changes
-	virtual void ChangeActivationState(const bool bNewState) override;
+	virtual void ChangeActivationState(const bool bNewState, bool bPlaySound = true) override;
 
 public:	
 	// Called every frame

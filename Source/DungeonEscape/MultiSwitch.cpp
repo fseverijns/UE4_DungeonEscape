@@ -1,7 +1,7 @@
 // Copyright Frank Severijns 2020
 
 #include "MultiSwitch.h"
-#include "SwitchObserver.h"
+#include "Switchable.h"
 
 // Sets default values for this component's properties
 UMultiSwitch::UMultiSwitch()
@@ -22,21 +22,21 @@ void UMultiSwitch::BeginPlay()
 	Initialize();
 }
 
-// Check the validity of each SubSwitchObserver and create pointers to their SwitchObserver components
+// Check the validity of each SubSwitchable and create pointers to their Switchable components
 void UMultiSwitch::Initialize()
 {
-	for(FSubSwitchObserver& SubSwitchObserver : SubSwitchObservers)
+	for(FSubSwitchable& SubSwitchable : SubSwitchables)
 	{
-		if(!SubSwitchObserver.SwitchObserverActor || SubSwitchObserver.SwitchObserverActor == nullptr) // Ensure the actor is not null
+		if(!SubSwitchable.SwitchableActor || SubSwitchable.SwitchableActor == nullptr) // Ensure the actor is not null
 		{
-			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s has an unassigned SubSwitchObserver!"), *GetOwner()->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s has an unassigned SubSwitchable!"), *GetOwner()->GetName());
 			return;
 		}
 
-		SubSwitchObserver.SwitchObserver = SubSwitchObserver.SwitchObserverActor->FindComponentByClass<USwitchObserver>();
-		if(!SubSwitchObserver.SwitchObserver || SubSwitchObserver.SwitchObserver == nullptr) // Ensure the actor has a SwitchObserver derived component
+		SubSwitchable.Switchable = SubSwitchable.SwitchableActor->FindComponentByClass<USwitchable>();
+		if(!SubSwitchable.Switchable || SubSwitchable.Switchable == nullptr) // Ensure the actor has a Switchable derived component
 		{
-			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s has SubSwitchObserver %s, but the SubSwitch Actor has no derivative of SwitchObserver attached!"), *GetOwner()->GetName(), *SubSwitchObserver.SwitchObserverActor->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s has SubSwitchable %s, but the SubSwitch Actor has no derivative of Switchable attached!"), *GetOwner()->GetName(), *SubSwitchable.SwitchableActor->GetName());
 			return;
 		}
 	}
@@ -55,39 +55,39 @@ void UMultiSwitch::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 		return;
 	}
 
-	bool bSubSwitchStatesCorrect = CheckSubSwitchStates(); // Check the subswitchobservers states
-	if(bSubSwitchStatesCorrect &&  !bCurrentSwitchState) // If the subswitchobservers are all in their desired states since the last tick (we don't want to spam this notification), notify the actual observers
+	bool bSubSwitchStatesCorrect = CheckSubSwitchStates(); // Check the subSwitchables states
+	if(bSubSwitchStatesCorrect &&  !bCurrentSwitchState) // If the subSwitchables are all in their desired states since the last tick (we don't want to spam this notification), notify the actual Switchables
 	{
-		NotifyObservers(true);
+		NotifySwitchables(true);
 	}
-	else if(!bSubSwitchStatesCorrect && bCurrentSwitchState) // If the subswitchobservers are not in their desired state anymore, notify the actual observers
+	else if(!bSubSwitchStatesCorrect && bCurrentSwitchState) // If the subSwitchables are not in their desired state anymore, notify the actual Switchables
 	{
-		NotifyObservers(false);
+		NotifySwitchables(false);
 	}
 
-	bCurrentSwitchState = bSubSwitchStatesCorrect; // Update the switch state based on the state of the subswitchobservers
+	bCurrentSwitchState = bSubSwitchStatesCorrect; // Update the switch state based on the state of the subSwitchables
 }
 
-// Iterate through the SubSwitchObservers to determine if they are all in their desired state
+// Iterate through the SubSwitchables to determine if they are all in their desired state
 bool UMultiSwitch::CheckSubSwitchStates()
 {
-	for(FSubSwitchObserver SubSwitch : SubSwitchObservers)
+	for(FSubSwitchable SubSwitch : SubSwitchables)
 	{
-		if(SubSwitch.SwitchObserver && SubSwitch.SwitchObserver != nullptr)
+		if(SubSwitch.Switchable && SubSwitch.Switchable != nullptr)
 		{
-			if(SubSwitch.SwitchObserver->GetCurrentState() != SubSwitch.bDesiredState)
+			if(SubSwitch.Switchable->GetCurrentState() != SubSwitch.bDesiredState)
 			{
-				return false; // A SubSwitchObserver was found not in the desired state, return false 
+				return false; // A SubSwitchable was found not in the desired state, return false 
 			}
 		}
-		else // A SubSwitchObserver is somehow no longer valid (null), return false and log a warning
+		else // A SubSwitchable is somehow no longer valid (null), return false and log a warning
 		{	
-			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s is trying to evaluate a non-existent switch observer!"), *GetOwner()->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("MultiSwitch %s is trying to evaluate a non-existent Switchable!"), *GetOwner()->GetName());
 			return false;
 		}
 		
 	}
 
-	return true; // All SubSwitchObservers are in their desired state, return true
+	return true; // All SubSwitchables are in their desired state, return true
 }
 

@@ -30,6 +30,8 @@ void UObjectTranslator::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
 void UObjectTranslator::Transform(float DeltaTime, bool& out_bTransformCompleted)
 {
+	Super::Transform(DeltaTime, out_bTransformCompleted);
+	
 	FVector CurrentLocation = Object->GetRelativeLocation();
 	FVector TargetLocation = ObjectEndLocation;
 

@@ -6,7 +6,7 @@
 #include "Switch.h"
 #include "InteractSwitch.generated.h"
 
-/* 	Derivate of Switch. Notifies Switch Observers to change their state.
+/* 	Derivate of Switch. Notifies Switchables to change their state.
 *	Responds to player interacting with the actor (by pressing interact key).
 */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) ) 

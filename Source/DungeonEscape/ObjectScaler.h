@@ -8,7 +8,7 @@
 #include "ObjectTransformer.h"
 #include "ObjectScaler.generated.h"
 
-/* 	A SwitchObserver derivative. Can be assigned to any Switch component.
+/* 	A Switchable derivative. Can be assigned to any Switch component.
 *	When activated/deactivated, it Lerps the scale from its start and end state (and vice versa).
 */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )

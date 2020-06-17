@@ -2,7 +2,10 @@
 
 #include "Switch.h"
 #include "Respawnable.h"
-#include "SwitchObserver.h"
+#include "Engine/World.h"
+#include "GameFramework/Actor.h"
+#include "PlayerRespawner.h"
+#include "Switchable.h"
 
 // Sets default values for this component's properties
 USwitch::USwitch()
@@ -20,6 +23,10 @@ void USwitch::BeginPlay()
 {
 	Super::BeginPlay();
 
+	InitializeRespawner();
+
+	RegisterRespawnable();
+
 	bDefaultSwitchState = bCurrentSwitchState;
 
 	if(AffectedActors.Num() == 0)
@@ -32,19 +39,28 @@ void USwitch::BeginPlay()
 	{
 		if(Actor && Actor != nullptr)
 		{
-			TArray<USwitchObserver*> Observers;
-			Actor->GetComponents<USwitchObserver>(Observers);
+			TArray<USwitchable*> NewSwitchables;
+			Actor->GetComponents<USwitchable>(NewSwitchables);
 
-			if(Observers.Num() == 0)
+			if(NewSwitchables.Num() == 0)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("%s is assigned to %s as an affected actor, but has no Components that derive from USwitchObserver!"), *Actor->GetName(), *GetOwner()->GetName());
+				UE_LOG(LogTemp, Warning, TEXT("%s is assigned to %s as an affected actor, but has no Components that derive from USwitchable!"), *Actor->GetName(), *GetOwner()->GetName());
 				continue;
 			}
 
-			SwitchObservers.Append(Observers);
-			UE_LOG(LogTemp, Warning, TEXT("%s appended %i Switch Observers!"), *Actor->GetName(), Observers.Num());
+			Switchables.Append(NewSwitchables);
+			UE_LOG(LogTemp, Warning, TEXT("%s appended %i Switchables!"), *GetOwner()->GetName(), NewSwitchables.Num());
 		}
 	}	
+}
+
+void USwitch::InitializeRespawner()
+{
+	Respawner = GetWorld()->GetFirstPlayerController()->GetPawn()->FindComponentByClass<UPlayerRespawner>();
+	if(!Respawner || Respawner == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Could not locate a Player with the Player Respawner component!"));
+	}
 }
 
 // Called every frame
@@ -60,27 +76,37 @@ bool USwitch::GetSwitchState()
 	return bCurrentSwitchState;
 }
 
-void USwitch::NotifyObservers(const bool bSwitchState)
+void USwitch::NotifySwitchables(const bool bSwitchState)
 {
 	bCurrentSwitchState = bSwitchState;
 	
-	for(USwitchObserver* Observer : SwitchObservers)
+	for(USwitchable* Switchable : Switchables)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Notifying observer %s"), *Observer->GetOwner()->GetName());
-		Observer->OnSwitchStateChanged(bIsToggle ? !Observer->GetCurrentState() : bSwitchState); // If the switch is a toggle, pass the inverted state of the observer, else pass the state of the switch
+		UE_LOG(LogTemp, Warning, TEXT("Notifying Switchable %s"), *Switchable->GetOwner()->GetName());
+		Switchable->OnSwitchStateChanged(bIsToggle ? !Switchable->GetCurrentState() : bSwitchState); // If the switch is a toggle, pass the inverted state of the Switchable, else pass the state of the switch
+	}
+}
+
+void USwitch::RegisterRespawnable()
+{	
+	if(Respawner != nullptr)
+	{
+		Respawner->RegisterRespawnable(this);
 	}
 }
 
 void USwitch::OnPlayerRespawn()
-{
+{	
 	bCurrentSwitchState = bDefaultSwitchState;
+
+	// Implemented by derivived classes
 }
 
 void USwitch::OnCheckpointReached()
-{
+{	
 	if(bCurrentSwitchState != bDefaultSwitchState)
 	{
-		
+		Respawner->UnregisterRespawnable(this);
 	}
 }
 

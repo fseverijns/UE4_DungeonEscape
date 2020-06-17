@@ -30,9 +30,20 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	// Bind the input to the Interact function
+	void BindInput();
+	// Interact with an actor
+	void StartInteract();
+	// Returns the first actor within reach
+	AActor* FindFirstActorInReach() const;
+	// Cast a ray from the Actor's viewpoint to its reach
+	void CastRay(AActor* &out_HitActor) const;	
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	// Stop interacting with an actor
+	void StopInteract();
 
 private:
 	// Distance from which the player can interact with objects
@@ -43,15 +54,4 @@ private:
 	UInputComponent* InputHandler = nullptr;
 	// Switch currently being interacted with
 	UInteractSwitch* InteractingWith;	
-
-	// Bind the input to the Interact function
-	void BindInput();
-	// Interact with an actor
-	void StartInteract();
-	// Stop interacting with an actor
-	void StopInteract();
-	// Returns the first actor within reach
-	AActor* FindFirstActorInReach() const;
-	// Cast a ray from the Actor's viewpoint to its reach
-	void CastRay(AActor* &out_HitActor) const;	
 };

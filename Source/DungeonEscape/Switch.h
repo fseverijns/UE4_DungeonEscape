@@ -9,7 +9,8 @@
 #include "Switch.generated.h"
 
 // Forward Declarations
-class USwitchObserver;
+class USwitchable;
+class UPlayerRespawner;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DUNGEONESCAPE_API USwitch : public UActorComponent, public IRespawnable
@@ -23,47 +24,55 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	void NotifyObservers(const bool bSwitchState);
-	// Reset the object to its initial state
-	virtual void OnPlayerRespawn() override;
-	// Evaluate and unregister respawnable
-	virtual void OnCheckpointReached() override;
+	// Finds the player's respawn component or logs an error if none is found
+	virtual void InitializeRespawner();
+	// Notifies the Switchables to change their state
+	void NotifySwitchables(const bool bSwitchState);
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	// Gets the current switch state
 	bool GetSwitchState();
+	// Register the respawnable, making the system aware that this object should reset on player death
+	virtual void RegisterRespawnable() override;
+	// Reset the object to its original state
+	virtual void OnPlayerRespawn() override;
+	// Evaluate whether the object is still viable for resetting
+	virtual void OnCheckpointReached() override;
 
 protected:
-	// If true, the affected switch observers are not synchronized with the switch state, but instead their state is based on their previous state
+	// If true, the affected Switchables are not synchronized with the switch state, but instead their state is based on their previous state
 	UPROPERTY(EditAnywhere)
 	bool bIsToggle = false;
 
-	// Which actor are affected by the switch (actor must contain at least one ActorComponent deriving from Switch Observer to be affected)
+	// Which actors are affected by the switch (actor must contain at least one ActorComponent deriving from Switchable to be affected)
 	UPROPERTY(EditAnywhere)
 	TArray<AActor*> AffectedActors;
 
-	TArray<USwitchObserver*> SwitchObservers;
+	TArray<USwitchable*> Switchables;
 	bool bCurrentSwitchState;
 	bool bDefaultSwitchState;
 
+	// The player respawner (used to reset on player deaths)
+	UPlayerRespawner* Respawner = nullptr;
+
 public:
-	// Get switch observers of the specified type
+	// Get Switchables of the specified type
 	// This is just to try out template functions, it serves no actual purpose (yet)!
 	template <typename T>
-	FORCEINLINE TArray<T*> GetObserversOfType()
+	FORCEINLINE TArray<T*> GetSwitchablesOfType()
 	{
-		TArray<T*> ObserversOfType;
-		for(USwitchObserver* SwitchObserver : SwitchObservers)
+		TArray<T*> SwitchablesOfType;
+		for(USwitchable* Switchable : Switchables)
 		{
-			T* Observer = Cast<T>(SwitchObserver);
-			if(Observer && Observer != nullptr)
+			T* Switchable = Cast<T>(Switchable);
+			if(Switchable && Switchable != nullptr)
 			{
-				ObserversOfType.Add(Observer);
+				SwitchablesOfType.Add(Switchable);
 			}
 		}
 
-		return ObserversOfType;
+		return SwitchablesOfType;
 	}
 };

@@ -37,8 +37,8 @@ void UObjectMaterialChanger::TickComponent(float DeltaTime, ELevelTick TickType,
 	// ...
 }
 
-// Change the material to based on the state of the SwitchObserver.
-void UObjectMaterialChanger::ChangeActivationState(const bool bNewState)
+// Change the material to based on the state of the Switchable.
+void UObjectMaterialChanger::ChangeActivationState(const bool bNewState, bool bPlaySound)
 {
 	Super::ChangeActivationState(bNewState);
 

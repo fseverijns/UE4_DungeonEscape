@@ -107,7 +107,7 @@ void UGrabber::CastRay(AActor* &out_HitActor) const
 
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
 
-	DrawDebugLine(
+	/*DrawDebugLine(
 		GetWorld(),
 		PlayerViewPointLocation,
 		LineTraceEnd,
@@ -116,7 +116,7 @@ void UGrabber::CastRay(AActor* &out_HitActor) const
 		5.f,
 		0,
 		5.f
-	);
+	);*/
 
 	FHitResult Hit;
 	GetWorld()->LineTraceSingleByObjectType(

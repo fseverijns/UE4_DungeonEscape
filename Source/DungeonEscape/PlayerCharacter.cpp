@@ -16,7 +16,28 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	InitializeAudioComponent();
+	InitializeMovementComponent();
+
 	MaxWalkSpeed = GetCharacterMovement()->MaxWalkSpeed;
+}
+
+void APlayerCharacter::InitializeMovementComponent()
+{
+	MovementComponent = FindComponentByClass<UCharacterMovementComponent>();
+	if(!MovementComponent || MovementComponent == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s requires a Movement Component but none is attached!"), *GetName());
+	}
+}
+
+void APlayerCharacter::InitializeAudioComponent()
+{
+	AudioComponent = FindComponentByClass<UAudioComponent>();
+	if(!AudioComponent || AudioComponent == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s requires an Audio Component but none is attached!"), *GetName());
+	}
 }
 
 // Called every frame
@@ -33,6 +54,18 @@ void APlayerCharacter::Tick(float DeltaTime)
 			StopSprint();
 		}
 	}
+
+	if(MovementComponent != nullptr)
+	{
+		if(bWasFalling && !MovementComponent->IsFalling()) // if player was falling during last tick but not anymore, play the fall sound
+		{
+			PlayFallSound();
+		}
+
+		bWasFalling = MovementComponent->IsFalling();
+	}
+
+	FootstepSoundTimer += DeltaTime;	
 }
 
 void APlayerCharacter::SetPlayerMovementAllowed(const bool bAllowed)
@@ -80,6 +113,15 @@ void APlayerCharacter::MoveForward(float Axis)
 	if(bPressedSprint && Axis > 0.0f)
 	{
 		SprintIdleTimer = 0.0f;
+		if(FootstepSoundTimer >= SprintFootstepSoundInterval)
+		{
+			PlayFootstepSound();
+		}
+	}
+
+	if(!bPressedSprint && FootstepSoundTimer >= WalkFootstepSoundInterval && Axis > 0.0f)
+	{
+		PlayFootstepSound();
 	}
 
 	AddMovementInput(Direction, Axis);
@@ -92,9 +134,52 @@ void APlayerCharacter::MoveRight(float Axis)
 		return;
 	}
 
+	if(!bPressedSprint && FootstepSoundTimer >= WalkFootstepSoundInterval && Axis > 0.0f)
+	{
+		PlayFootstepSound();
+	}
+
 	FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
 
 	AddMovementInput(Direction, Axis);
+}
+
+void APlayerCharacter::PlayFootstepSound()
+{
+	if(!MovementComponent || MovementComponent == nullptr)
+	{
+		return;
+	}
+
+	if(MovementComponent->IsFalling())
+	{
+		return;
+	}
+
+	if(FootstepSounds.Num() > 0)
+	{
+		int RandomIndex = FMath::RandRange(0, FootstepSounds.Num()-1);
+		USoundBase* FootstepSound = FootstepSounds[RandomIndex];
+
+		if(FootstepSound != nullptr && AudioComponent != nullptr)
+		{
+			AudioComponent->SetSound(FootstepSound);
+			AudioComponent->SetPitchMultiplier(FMath::RandRange(-2.f, 2.f));
+			AudioComponent->Play();
+		}
+
+		FootstepSoundTimer = 0.0f;
+	}
+}
+
+void APlayerCharacter::PlayFallSound()
+{
+	if(FallSound != nullptr && AudioComponent != nullptr)
+	{
+		AudioComponent->SetSound(FallSound);
+		AudioComponent->SetPitchMultiplier(FMath::RandRange(1.f, 2.f));
+		AudioComponent->Play();
+	}
 }
 
 void APlayerCharacter::LookVertical(float Axis)

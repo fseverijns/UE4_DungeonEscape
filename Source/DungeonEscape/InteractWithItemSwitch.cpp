@@ -29,7 +29,23 @@ void UInteractWithItemSwitch::TickComponent(float DeltaTime, ELevelTick TickType
 // Check if player has the Key Item required, then interact if true.
 void UInteractWithItemSwitch::OnInteractStart()
 {
-	UE_LOG(LogTemp, Warning, TEXT("INTERACTING"));
+	if(InteractAllowed())
+	{
+		UInteractSwitch::OnInteractStart();
+	}
+}
+
+// Check if player has the Key Item required, then end interact if true.
+void UInteractWithItemSwitch::OnInteractStop()
+{
+	if(InteractAllowed())
+	{
+		UInteractSwitch::OnInteractStop();
+	}
+}
+
+bool UInteractWithItemSwitch::InteractAllowed()
+{
 	if(!Inventory || Inventory == nullptr) // First get the Inventory component from the player
 	{
 		AActor* Player = GetWorld()->GetFirstPlayerController()->GetPawn();
@@ -38,9 +54,8 @@ void UInteractWithItemSwitch::OnInteractStart()
 
 	if(Inventory && Inventory != nullptr)
     {
-        if(Inventory->HasCollectedItem(KeyItemId)) // Check if the Key Item is marked as collected in the inventory
-		{
-			UInteractSwitch::OnInteractStart();
-		}
-    }
+        return Inventory->HasCollectedItem(KeyItemId); // Check if the Key Item is marked as collected in the inventory
+	}
+
+	return false;
 }

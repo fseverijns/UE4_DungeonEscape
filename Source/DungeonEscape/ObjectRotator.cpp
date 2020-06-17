@@ -28,6 +28,8 @@ void UObjectRotator::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 
 void UObjectRotator::Transform(float DeltaTime, bool& out_bTransformCompleted)
 {
+	Super::Transform(DeltaTime, out_bTransformCompleted);
+
 	FRotator CurrentRotation = Object->GetRelativeRotation();
 	FRotator TargetRotation = ObjectEndRotation;
 
